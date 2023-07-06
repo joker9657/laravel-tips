@@ -1,0 +1,1 @@
+import{_ as a,o as e,c as t,O as r}from"./chunks/framework.571309da.js";const u=JSON.parse('{"title":"Laravel Tips","description":"","frontmatter":{},"headers":[],"relativePath":"README.md","filePath":"README.md"}'),i={name:"README.md"},l=r("",11),s=[l];function o(n,h,p,c,m,d){return e(),t("div",null,s)}const _=a(i,[["render",o]]);export{u as __pageData,_ as default};

@@ -1,0 +1,24 @@
+{
+  "name": "laravel-tips",
+  "version": "1.0.0",
+  "description": "It's horrible to see what is happening now in Ukraine, as Russian army is [bombarding houses, hospitals and kindergartens](https://twitter.com/DavidCornDC/status/1501620037785997316).",
+  "main": "index.js",
+  "scripts": {
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joker9657/laravel-tips.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/joker9657/laravel-tips/issues"
+  },
+  "homepage": "https://github.com/joker9657/laravel-tips#readme",
+  "devDependencies": {
+    "vitepress": "^1.0.0-beta.3"
+  }
+}
