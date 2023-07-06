@@ -1,6 +1,6 @@
 # Laravel Tips
 
-为所有工匠提供了很棒的 Laravel 提示和技巧。
+为所有工匠提供了很棒的 Laravel 提示和技巧。  
 Awesome Laravel tips and tricks for all artisans. 
 
 ---
