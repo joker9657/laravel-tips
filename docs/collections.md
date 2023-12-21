@@ -1,21 +1,13 @@
-## Collections
+# 集合
 
-⬆️ [Go to main menu](README.md#laravel-tips) ⬅️ [Previous (Validation)](validation.md) ➡️ [Next (Auth)](auth.md)
+⬆️ [回到主页](README.md#laravel-tips) ⬅️ [上一条 (表单验证)](validation.md) ➡️ [下一条 (用户授权)](auth.md)
 
-- [Use groupBy on Collections with Custom Callback Function](#use-groupby-on-collections-with-custom-callback-function)
-- [Laravel Scopes can be combined using "Higher Order" orWhere Method](#laravel-scopes-can-be-combined-using-higher-order-orwhere-method)
-- [Multiple Collection Methods in a Row](#multiple-collection-methods-in-a-row)
-- [Calculate Sum with Pagination](#calculate-sum-with-pagination)
-- [Serial no in foreach loop with pagination](#serial-no-in-foreach-loop-with-pagination)
-- [Higher order collection message](#higher-order-collection-message)
-- [Get an existing key or insert a value if it doesn't exist and return the value](#get-an-existing-key-or-insert-a-value-if-it-doesnt-exist-and-return-the-value)
-- [Static times method](#static-times-method)
 
-### Use groupBy on Collections with Custom Callback Function
+## 使用自定义回调函数对集合进行 groupBy 操作
 
-If you want to group result by some condition which isn’t a direct column in your database, you can do that by providing a closure function.
+如果您想根据数据库中不存在的某些条件对结果进行分组，可以通过提供闭包函数来实现。
 
-For example, if you want to group users by day of registration, here’s the code:
+例如，如果您想按注册日期将用户分组，可以使用以下代码：
 
 ```php
 $users = User::all()->groupBy(function($item) {
@@ -23,11 +15,11 @@ $users = User::all()->groupBy(function($item) {
 });
 ```
 
-⚠️ Notice: it is done on a `Collection` class, so performed **AFTER** the results are fetched from the database.
+⚠️ 注意：这是在 `Collection` 类上执行的操作， 所以是在从数据库获取（**AFTER**）结果之后进行的。
 
-### Laravel Scopes can be combined using "Higher Order" orWhere Method
+## 可以使用 "Higher Order" 的 orWhere 方法组合 Laravel 作用域
 
-Following example from the Docs.
+以下是文档中的示例。
 
 Before:
 ```php
@@ -41,11 +33,11 @@ After:
 User::popular()->orWhere->active()->get();
 ```
 
-Tip given by [@TheLaravelDev](https://twitter.com/TheLaravelDev/status/1564608208102199298/)
+Tip 来自 [@TheLaravelDev](https://twitter.com/TheLaravelDev/status/1564608208102199298/)
 
-### Multiple Collection Methods in a Row
+## 连续使用多个集合方法
 
-If you query all results with `->all()` or `->get()`, you may then perform various Collection operations on the same result, it won’t query database every time.
+如果您使用 `->all()` 或 `->get()` 查询所有结果，然后可以对相同的结果执行各种集合操作，这样不会每次都查询数据库。
 
 ```php
 $users = User::all();
@@ -54,9 +46,9 @@ echo 'Average age: ' . $users->avg('age');
 echo 'Total budget: ' . $users->sum('budget');
 ```
 
-### Calculate Sum with Pagination
+## 在分页中计算总和
 
-How to calculate the sum of all records when you have only the PAGINATED collection? Do the calculation BEFORE the pagination, but from the same query.
+当您只有分页的集合时，如何计算所有记录的总和？在分页之前进行计算，但使用相同的查询。
 
 ```php
 // How to get sum of post_views with pagination?
@@ -72,9 +64,9 @@ $sum = $query->sum('post_views');
 $posts = $query->paginate(10);
 ```
 
-### Serial no in foreach loop with pagination
+## 在 foreach 循环中使用序号和分页
 
-We can use foreach collection items index as serial no (SL) in pagination.
+我们可以使用 foreach 循环中的集合项索引作为序号（SL）在分页中使用。
 
 ```php
    ...
@@ -87,12 +79,12 @@ We can use foreach collection items index as serial no (SL) in pagination.
     @endforeach
 ```
 
-it will solve the issue of next pages(?page=2&...) index count from continue.
+这将解决下一页（?page=2&...）继续计数的问题。
 
-### Higher order collection message
+## 高阶集合消息
 
-Collections also provide support for "higher order messages", which are short-cuts for performing common actions on collections.
-This example calculates the price per group of products on an offer.
+集合还支持 "高阶消息"，它们是对集合执行常见操作的快捷方式。
+此示例计算优惠中每组产品的价格。
 
 ```php
 $offer = [
@@ -110,9 +102,9 @@ $offer = [
 $totalPerGroup = collect($offer['lines'])->groupBy->group->map->sum('price');
 ```
 
-### Get an existing key or insert a value if it doesn't exist and return the value
+## 获取现有的键或在键不存在时插入值并返回该值
 
-In Laravel 8.81 `getOrPut` method to Collections that simplifies the use-case where you want to either get an existing key or insert a value if it doesn't exist and return the value.
+在 Laravel 8.81 中，为集合添加了 `getOrPut` 方法，简化了以下用例：如果要获取现有的键，或者在键不存在时插入值并返回该值。
 
 ```php
 $key = 'name';
@@ -130,11 +122,11 @@ return $this->collection->getOrPut($key, fn() => ...);
 return $this->collection->getOrPut($key, $value='teacoders');
 ```
 
-Tip given by [@Teacoders](https://twitter.com/Teacoders/status/1488338815592718336)
+Tip 来自 [@Teacoders](https://twitter.com/Teacoders/status/1488338815592718336)
 
-### Static times method
+## 静态 times 方法
 
-The static times method creates a new collection by invoking the given closure a specified number of times.
+静态 times 方法通过指定的次数调用给定的闭包函数来创建一个新的集合。
 
 ```php
 Collection::times(7, function ($number) {
@@ -143,5 +135,5 @@ Collection::times(7, function ($number) {
 // Output: [01-04-2022, 02-04-2022, ..., 07-04-2022]
 ```
 
-Tip given by [@Teacoders](https://twitter.com/Teacoders/status/1509447909602906116)
+Tip 来自 [@Teacoders](https://twitter.com/Teacoders/status/1509447909602906116)
 

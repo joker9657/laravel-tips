@@ -1,17 +1,10 @@
-## Auth
+# 用户授权
 
-⬆️ [Go to main menu](README.md#laravel-tips) ⬅️ [Previous (Collections)](collections.md) ➡️ [Next (Mail)](mail.md)
+⬆️ [回到主页](README.md#laravel-tips) ⬅️ [上一条 (集合)](collections.md) ➡️ [下一条 (邮件)](mail.md)
 
-- [Check Multiple Permissions at Once](#check-multiple-permissions-at-once)
-- [Authenticate users with more options](#authenticate-users-with-more-options)
-- [More Events on User Registration](#more-events-on-user-registration)
-- [Did you know about Auth::once()?](#did-you-know-about-authonce)
-- [Change API Token on users password update](#change-api-token-on-users-password-update)
-- [Override Permissions for Super Admin](#override-permissions-for-super-admin)
+## 一次性检查多个权限
 
-### Check Multiple Permissions at Once
-
-In addition to `@can` Blade directive, did you know you can check multiple permissions at once with `@canany` directive?
+除了 `@can` Blade 指令之外，你知道你还可以使用 `@canany` 指令一次性检查多个权限吗？
 
 ```blade
 @canany(['update', 'view', 'delete'], $post)
@@ -21,11 +14,11 @@ In addition to `@can` Blade directive, did you know you can check multiple permi
 @endcanany
 ```
 
-### Authenticate users with more options
+## 通过更多选项对用户进行身份验证
 
-If you only want to authenticate users that are also "activated", for example, it's as simple as passing an extra argument to `Auth::attempt()`.
+如果你只想对已经 “激活” 的用户进行身份验证，只需要向 `Auth::attempt()` 方法传递额外的参数即可。
 
-No need for complex middleware or global scopes.
+不需要复杂的中间件或全局作用域。
 
 ```php
 Auth::attempt(
@@ -37,9 +30,9 @@ Auth::attempt(
 );
 ```
 
-Tip given by [@LukeDowning19](https://twitter.com/LukeDowning19)
+Tip 来自 [@LukeDowning19](https://twitter.com/LukeDowning19)
 
-### More Events on User Registration
+## 用户注册后的更多事件
 
 Want to perform some actions after new user registration? Head to `app/Providers/EventServiceProvider.php` and add more Listeners classes, and then in those classes implement `handle()` method with `$event->user` object
 
@@ -56,7 +49,7 @@ class EventServiceProvider extends ServiceProvider
     ];
 ```
 
-### Did you know about Auth::once()?
+## Did you know about Auth::once()?
 
 You can login with user only for ONE REQUEST, using method `Auth::once()`.
 No sessions or cookies will be utilized, which means this method may be helpful when building a stateless API.
@@ -67,7 +60,7 @@ if (Auth::once($credentials)) {
 }
 ```
 
-### Change API Token on users password update
+## Change API Token on users password update
 
 It's convenient to change the user's API Token when its password changes.
 
@@ -85,7 +78,7 @@ protected function password(): Attribute
 }
 ```
 
-### Override Permissions for Super Admin
+## Override Permissions for Super Admin
 
 If you've defined your Gates but want to override all permissions for SUPER ADMIN user, to give that superadmin ALL permissions, you can intercept gates with `Gate::before()` statement, in `AuthServiceProvider.php` file.
 

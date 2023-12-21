@@ -1,33 +1,16 @@
-## Migrations
+# 数据库迁移
 
-⬆️ [Go to main menu](README.md#laravel-tips) ⬅️ [Previous (Models Relations)](models-relations.md) ➡️ [Next (Views)](views.md)
+⬆️ [回到主页](README.md#laravel-tips) ⬅️ [上一条 (模型关联)](models-relations.md) ➡️ [下一条 (视图)](views.md)
 
-- [Order of Migrations](#order-of-migrations)
-- [Migration fields with timezones](#migration-fields-with-timezones)
-- [Database migrations column types](#database-migrations-column-types)
-- [Default Timestamp](#default-timestamp)
-- [Migration Status](#migration-status)
-- [Create Migration with Spaces](#create-migration-with-spaces)
-- [Create Column after Another Column](#create-column-after-another-column)
-- [Make migration for existing table](#make-migration-for-existing-table)
-- [Output SQL before running migrations](#output-sql-before-running-migrations)
-- [Anonymous Migrations](#anonymous-migrations)
-- [You can add "comment" about a column inside your migrations](#you-can-add-comment-about-a-column-inside-your-migrations)
-- [Checking For Table / Column Existence](#checking-for-table--column-existence)
-- [Group Columns within an After Method](#group-columns-within-an-after-method)
-- [Add the column in the database table only if it's not present & can drop it if, its present](#add-the-column-in-the-database-table-only-if-its-not-present--can-drop-it-if-its-present)
-- [Method to set the default value for current timestamp](#method-to-set-the-default-value-for-current-timestamp)
+## 迁移顺序
 
-### Order of Migrations
+如果你想更改数据库迁移的顺序，只需将文件的时间戳重命名，例如将 `2018_08_04_070443_create_posts_table.php` 改为 `2018_07_04_070443_create_posts_table.php` (将 `2018_08_04` 改为 `2018_07_04`)。
 
-If you want to change the order of DB migrations, just rename the file's timestamp, like from `2018_08_04_070443_create_posts_table.php` to`2018_07_04_070443_create_posts_table.php` (changed from `2018_08_04` to `2018_07_04`).
+它们按字母顺序运行。
 
-They run in alphabetical order.
+## 迁移字段带时区
 
-### Migration fields with timezones
-
-Did you know that in migrations there's not only `timestamps()` but also `timestampsTz()`, for the timezone?
-
+你知道在迁移中不仅有 `timestamps()`，还有带时区的 `timestampsTz()` 吗？
 ```php
 Schema::create('employees', function (Blueprint $table) {
     $table->increments('id');
@@ -37,11 +20,11 @@ Schema::create('employees', function (Blueprint $table) {
 });
 ```
 
-Also, there are columns `dateTimeTz()`, `timeTz()`, `timestampTz()`, `softDeletesTz()`.
+此外，还有 `dateTimeTz()`, `timeTz()`, `timestampTz()`, `softDeletesTz()` 等列类型。
 
-### Database migrations column types
+## 数据库迁移列类型
 
-There are interesting column types for migrations, here are a few examples.
+迁移中有一些有趣的列类型，以下是一些示例。
 
 ```php
 $table->geometry('positions');
@@ -51,23 +34,22 @@ $table->point('position');
 $table->uuid('id');
 ```
 
-See all column types on the [official documentation](https://laravel.com/docs/master/migrations#creating-columns).
+在 [官方文档](https://laravel.com/docs/master/migrations#creating-columns) 中可以查看所有列类型。
 
-### Default Timestamp
+## 默认时间戳
 
-While creating migrations, you can use `timestamp()` column type with option
-`useCurrent()` and `useCurrentOnUpdate()`, it will set `CURRENT_TIMESTAMP` as default value.
+在创建迁移时，你可以使用 `timestamp()` 列类型和 `useCurrent()` 选项以及 `useCurrentOnUpdate()` 选项，它将将 `CURRENT_TIMESTAMP` 设置为默认值。
 
 ```php
 $table->timestamp('created_at')->useCurrent();
 $table->timestamp('updated_at')->useCurrentOnUpdate();
 ```
 
-### Migration Status
+## 迁移状态
 
-If you want to check what migrations are executed or not yet, no need to look at the database "migrations" table, you can launch `php artisan migrate:status` command.
+如果你想要检查已执行或尚未执行的迁移，无需查看数据库中的 "migrations" 表，你可以运行 `php artisan migrate:status` 命令。
 
-Example result:
+示例结果:
 
 ```
 Migration name .......................................................................... Batch / Status  
@@ -76,9 +58,9 @@ Migration name .................................................................
 2019_08_19_000000_create_failed_jobs_table ..................................................... [1] Ran    
 ```
 
-### Create Migration with Spaces
+## 使用空格创建迁移
 
-When typing `make:migration` command, you don't necessarily have to use underscore `_` symbol between parts, like `create_transactions_table`. You can put the name into quotes and then use spaces instead of underscores.
+在输入 `make:migration` 命令时，你不一定需要在各部分之间使用下划线 `_` 符号，比如 `create_transactions_table`。你可以将名称放在引号中，然后使用空格代替下划线。
 
 ```php
 // This works
@@ -88,13 +70,13 @@ php artisan make:migration create_transactions_table
 php artisan make:migration "create transactions table"
 ```
 
-Source: [Steve O on Twitter](https://twitter.com/stephenoldham/status/1353647972991578120)
+来源: [Steve O on Twitter](https://twitter.com/stephenoldham/status/1353647972991578120)
 
-### Create Column after Another Column
+## 在另一列之后创建列
 
-_Notice: Only MySQL_
+注意：仅适用于MySQL
 
-If you're adding a new column to the existing table, it doesn't necessarily have to become the last in the list. You can specify after which column it should be created:
+如果要向现有表添加新列，它不一定要成为列表中的最后一列。你可以指定在哪一列之后创建它：
 
 ```php
 Schema::table('users', function (Blueprint $table) {
@@ -102,7 +84,7 @@ Schema::table('users', function (Blueprint $table) {
 });
 ```
 
-If you're adding a new column to the existing table, it doesn't necessarily have to become the last in the list. You can specify before which column it should be created:
+如果要向现有表添加新列，它不一定要成为列表中的最后一列。你可以指定在哪一列之前创建它：
 
 ```php
 Schema::table('users', function (Blueprint $table) {
@@ -110,7 +92,7 @@ Schema::table('users', function (Blueprint $table) {
 });
 ```
 
-If you want your column to be the first in your table , then use the first method.
+如果你希望你的列成为表中的第一列，则使用 `first` 方法。
 
 ```php
 Schema::table('users', function (Blueprint $table) {
@@ -118,7 +100,7 @@ Schema::table('users', function (Blueprint $table) {
 });
 ```
 
-Also the `after()` method can now be used to add multiple fields.
+此外，`after()` 方法现在可以用于添加多个字段。
 
 ```php
 Schema::table('users', function (Blueprint $table) {
@@ -129,10 +111,10 @@ Schema::table('users', function (Blueprint $table) {
 });
 ```
 
-### Make migration for existing table
+## 为现有表创建迁移
 
-If you make a migration for existing table, and you want Laravel to generate the Schema::table() for you, then add "\_in_xxxxx_table" or "\_to_xxxxx_table" at the end, or specify "--table" parameter.
-`php artisan change_fields_products_table` generates empty class
+如果你为现有表创建迁移，并且希望 Laravel 为你生成 Schema::table() 代码，请在末尾添加 "_in_xxxxx_table" 或 "_to_xxxxx_table" ，或者指定 "--table" 参数。  
+`php artisan change_fields_products_table` 会生成空的类
 
 ```php
 class ChangeFieldsProductsTable extends Migration
@@ -144,7 +126,7 @@ class ChangeFieldsProductsTable extends Migration
 }
 ```
 
-But add `in_xxxxx_table` `php artisan make:migration change_fields_in_products_table` and it generates class with `Schema::table()` pre-filled
+但是如果添加 `in_xxxxx_table` ，`php artisan make:migration change_fields_in_products_table` 会生成带有预填充的 `Schema::table()` 代码的类
 
 ```php
 class ChangeFieldsProductsTable extends Migration
@@ -158,7 +140,7 @@ class ChangeFieldsProductsTable extends Migration
 }
 ```
 
-Also you can specify `--table` parameter `php artisan make:migration whatever_you_want --table=products`
+你也可以指定 `--table` 参数 `php artisan make:migration whatever_you_want --table=products`
 
 ```php
 class WhateverYouWant extends Migration
@@ -172,21 +154,20 @@ class WhateverYouWant extends Migration
 }
 ```
 
-### Output SQL before running migrations
+## 运行迁移前输出 SQL
 
-When typing `migrate --pretend` command, you get the SQL query that will be executed in the terminal. It's an interesting way to debug SQL if necessary.
+当输入 `migrate --pretend` 命令时，你会在终端中获取将要执行的 SQL 查询语句。这是一种在需要时调试 SQL 的有趣方式。
 
 ```php
 // Artisan command
 php artisan migrate --pretend
 ```
 
-Tip given by [@zarpelon](https://github.com/zarpelon)
+Tip 来自 [@zarpelon](https://github.com/zarpelon)
 
-### Anonymous Migrations
+## 匿名迁移
 
-The Laravel team released Laravel 8.37 with anonymous migration support, which solves a GitHub issue with migration class name collisions. The core of the problem is that if multiple migrations have the same class name, it'll cause issues when trying to recreate the database from scratch.
-Here's an example from the [pull request](https://github.com/laravel/framework/pull/36906) tests:
+Laravel 团队发布了 Laravel 8.37，支持匿名迁移，解决了迁移类名冲突的 GitHub 问题。问题的核心是，如果多个迁移具有相同的类名，尝试从头重新创建数据库时会引发问题。以下是 [拉取请求](https://github.com/laravel/framework/pull/36906) 测试的示例：
 
 ```php
 use Illuminate\Database\Migrations\Migration;
@@ -210,13 +191,13 @@ return new class extends Migration {
 };
 ```
 
-Tip given by [@nicksdot](https://twitter.com/nicksdot/status/1432340806275198978)
+Tip 来自 [@nicksdot](https://twitter.com/nicksdot/status/1432340806275198978)
 
-### You can add "comment" about a column inside your migrations
+## 在迁移中为列添加 “注释”
 
-You can add "comment" about a column inside your migrations and provide useful information.
+你可以在迁移中为列添加 “注释”，提供有用的信息。
 
-If database is managed by someone other than developers, they can look at comments in Table structure before performing any operations.
+如果数据库由开发人员以外的其他人管理，他们可以在执行任何操作之前查看表结构中的注释。
 
 ```php
 $table->unsignedInteger('interval')
@@ -224,11 +205,11 @@ $table->unsignedInteger('interval')
     ->comment('This column is used for indexing.')
 ```
 
-Tip given by [@nicksdot](https://twitter.com/nicksdot/status/1432340806275198978)
+Tip 来自 [@nicksdot](https://twitter.com/nicksdot/status/1432340806275198978)
 
-### Checking For Table / Column Existence
+## 检查 表 / 列是否存在
 
-You may check for the existence of a table or column using the hasTable and hasColumn methods:
+你可以使用 hasTable 和 hasColumn 方法来检查表或列是否存在：
 
 ```php
 if (Schema::hasTable('users')) {
@@ -240,11 +221,11 @@ if (Schema::hasColumn('users', 'email')) {
 }
 ```
 
-Tip given by [@dipeshsukhia](https://github.com/dipeshsukhia)
+Tip 来自 [@dipeshsukhia](https://github.com/dipeshsukhia)
 
-### Group Columns within an After Method
+## 在 after 方法中分组列
 
-In your migrations, you can add multiple columns after another column using the after method:
+在迁移中，你可以使用 after 方法在另一列后添加多个列：
 
 ```php
 Schema::table('users', function (Blueprint $table) {
@@ -256,17 +237,17 @@ Schema::table('users', function (Blueprint $table) {
 });
 ```
 
-Tip given by [@ncosmeescobedo](https://twitter.com/cosmeescobedo/status/1512233993176973314)
+Tip 来自 [@ncosmeescobedo](https://twitter.com/cosmeescobedo/status/1512233993176973314)
 
-### Add the column in the database table only if it's not present & can drop it if, its present
+## 仅在数据库表中添加列（如果不存在），并在存在时删除它
 
-Now you can add the column in the database table only if its not present & can drop it if, its present. For that following methods are introduced:
+现在，你可以仅在数据库表中添加列（如果不存在），并在存在时删除它。为此，引入了以下方法：
 
 👉 whenTableDoesntHaveColumn
 
 👉 whenTableHasColumn
 
-Available from Laravel 9.6.0
+从 Laravel 9.6.0 开始可用
 
 ```php
 return new class extends Migration {
@@ -286,11 +267,11 @@ return new class extends Migration {
 }
 ```
 
-Tip given by [@iamharis010](https://twitter.com/iamharis010/status/1510579415163432961)
+Tip 来自 [@iamharis010](https://twitter.com/iamharis010/status/1510579415163432961)
 
-### Method to set the default value for current timestamp
+## 设置当前时间戳的默认值的方法
 
-You can use `useCurrent()` method for your custom timestamp column to store the current timestamp as a default value.
+你可以使用 `useCurrent()` 方法为自定义的时间戳列设置当前时间戳作为默认值。
 
 ```php
 Schema::create('posts', function (Blueprint $table) {
@@ -301,5 +282,5 @@ Schema::create('posts', function (Blueprint $table) {
 });
 ```
 
-Tip given by [@iamgurmandeep](https://twitter.com/iamgurmandeep/status/1517152425748148225)
+Tip 来自 [@iamgurmandeep](https://twitter.com/iamgurmandeep/status/1517152425748148225)
 

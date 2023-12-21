@@ -1,47 +1,10 @@
-## Models Relations
+# 模型关联
 
-⬆️ [Go to main menu](README.md#laravel-tips) ⬅️ [Previous (DB Models and Eloquent)](db-models-and-eloquent.md) ➡️ [Next (Migrations)](migrations.md)
+⬆️ [回到主页](README.md#laravel-tips) ⬅️ [上一条 (DB 模型和 Eloquent)](db-models-and-eloquent.md) ➡️ [下一条 (迁移)](migrations.md)
 
-- [OrderBy on Eloquent relationships](#orderby-on-eloquent-relationships)
-- [Add where statement to Many-to-Many relation](#add-where-statement-to-many-to-many-relation)
-- [Get the newest (or oldest) item of another relation](#get-the-newest-or-oldest-item-of-another-relation)
-- [Conditional relationships](#conditional-relationships)
-- [Raw DB Queries: havingRaw()](#raw-db-queries-havingraw)
-- [Eloquent has() deeper](#eloquent-has-deeper)
-- [Has Many. How many exactly?](#has-many-how-many-exactly)
-- [Default model](#default-model)
-- [Use hasMany to create Many](#use-hasmany-to-create-many)
-- [Multi level Eager Loading](#multi-level-eager-loading)
-- [Eager Loading with Exact Columns](#eager-loading-with-exact-columns)
-- [Touch parent updated_at easily](#touch-parent-updated_at-easily)
-- [Always Check if Relationship Exists](#always-check-if-relationship-exists)
-- [Use withCount() to Calculate Child Relationships Records](#use-withcount-to-calculate-child-relationships-records)
-- [Extra Filter Query on Relationships](#extra-filter-query-on-relationships)
-- [Load Relationships Always, but Dynamically](#load-relationships-always-but-dynamically)
-- [Instead of belongsTo, use hasMany](#instead-of-belongsto-use-hasmany)
-- [Rename Pivot Table](#rename-pivot-table)
-- [Update Parent in One Line](#update-parent-in-one-line)
-- [Laravel 7+ Foreign Keys](#laravel-7-foreign-keys)
-- [Combine Two "whereHas"](#combine-two-wherehas)
-- [Check if Relationship Method Exists](#check-if-relationship-method-exists)
-- [Pivot Table with Extra Relations](#pivot-table-with-extra-relations)
-- [Load Count on-the-fly](#load-count-on-the-fly)
-- [Randomize Relationship Order](#randomize-relationship-order)
-- [Filter hasMany relationships](#filter-hasmany-relationships)
-- [Filter by many-to-many relationship pivot column](#filter-by-many-to-many-relationship-pivot-column)
-- [A shorter way to write whereHas](#a-shorter-way-to-write-wherehas)
-- [You can add conditions to your relationships](#you-can-add-conditions-to-your-relationships)
-- [New `whereBelongsTo()` Eloquent query builder method](#new-wherebelongsto-eloquent-query-builder-method)
-- [The `is()` method of one-to-one relationships for comparing models](#the-is-method-of-one-to-one-relationships-for-comparing-models)
-- [`whereHas()` multiple connections](#wherehas-multiple-connections)
-- [Update an existing pivot record](#update-an-existing-pivot-record)
-- [Relation that will get the newest (or oldest) item](#relation-that-will-get-the-newest-or-oldest-item)
-- [Replace your custom queries with ofMany](#replace-your-custom-queries-with-ofmany)
-- [Avoid data leakage when using orWhere on a relationship](#avoid-data-leakage-when-using-orwhere-on-a-relationship)
+## 在 Eloquent 关联中排序
 
-### OrderBy on Eloquent relationships
-
-You can specify orderBy() directly on your Eloquent relationships.
+你可以直接在 Eloquent 关联上使用 `orderBy()` 来指定排序顺序。
 
 ```php
 public function products()
@@ -55,9 +18,9 @@ public function productsByName()
 }
 ```
 
-### Add where statement to Many-to-Many relation
+## 多对多关联添加 where 语句
 
-In your many-to-many relationships, you can add where statements to your pivot table using the `wherePivot` method.
+在你的多对多关联中，你可以使用 `wherePivot` 方法向关联的中间表添加 where 语句。
 
 ```php
 class Developer extends Model
@@ -77,11 +40,11 @@ class Developer extends Model
 }
 ```
 
-Tip given by [@cosmeescobedo](https://twitter.com/cosmeescobedo/status/1582904416457269248)
+Tip 来自 [@cosmeescobedo](https://twitter.com/cosmeescobedo/status/1582904416457269248)
 
-### Get the newest (or oldest) item of another relation
+## 获取另一个关联的最新或最老的项目
 
-Since Laravel 8.42, in an Eloquent model, you can define a relation that will get the newest (or oldest) item of another relation.
+自 Laravel 8.42 起，在 Eloquent 模型中，你可以定义一个关系，用于获取另一个关系中最新（或最旧）的项目。
 
 ```php
 /**
@@ -101,11 +64,11 @@ public function oldestOrder()
 }
 ```
 
-### Conditional relationships
+## 条件关系
 
-If you notice that you use same relationship often with additional "where" condition, you can create a separate relationship method.
+如果你注意到自己经常在同一个关系上使用额外的 “where” 条件，你可以创建一个单独的关系方法。
 
-Model:
+模型类:
 
 ```php
 public function comments()
@@ -117,19 +80,20 @@ public function approved_comments()
 {
     return $this->hasMany(Comment::class)->where('approved', 1);
 }
+
 ```
 
-### Raw DB Queries: havingRaw()
+## 原始数据库查询: havingRaw()
 
-You can use RAW DB queries in various places, including `havingRaw()` function after `groupBy()`.
+你可以在各个地方使用原始的数据库查询，包括在 `groupBy()` 后使用 `havingRaw()` 函数。
 
 ```php
 Product::groupBy('category_id')->havingRaw('COUNT(*) > 1')->get();
 ```
 
-### Eloquent has() deeper
+## 更深入的 Eloquent has()
 
-You can use Eloquent `has()` function to query relationships even two layers deep!
+你可以使用 Eloquent 的 `has()` 函数来查询关系，甚至可以查询两层深的关系！
 
 ```php
 // Author -> hasMany(Book::class);
@@ -137,18 +101,18 @@ You can use Eloquent `has()` function to query relationships even two layers dee
 $authors = Author::has('books.ratings')->get();
 ```
 
-### Has Many. How many exactly?
+## hasMany()关系中，可以精确过滤具有特定数量子记录的记录
 
-In Eloquent `hasMany()` relationships, you can filter out records that have X amount of children records.
+在 Eloquent 的 `hasMany()` 关系中，你可以过滤掉具有 X 个子记录的记录。
 
 ```php
 // Author -> hasMany(Book::class)
 $authors = Author::has('books', '>', 5)->get();
 ```
 
-### Default model
+## 默认模型
 
-You can assign a default model in `belongsTo` relationship, to avoid fatal errors when calling it like `{ { $post->user->name } }` if $post->user doesn't exist.
+你可以在 `belongsTo` 关系中分配一个默认模型，以避免在调用 <code v-pre>{{ $post->user->name }}</code> 时出现致命错误，如果 `$post->user` 不存在的话。
 
 ```php
 public function user()
@@ -157,9 +121,9 @@ public function user()
 }
 ```
 
-### Use hasMany to create Many
+## 使用 hasMany 创建多个
 
-If you have `hasMany()` relationship, you can use `saveMany()` to save multiple "child" entries from your "parent" object, all in one sentence.
+如果你有 `hasMany()` 关系，可以使用 `saveMany()` 一次性从“父”对象保存多个“子”条目。
 
 ```php
 $post = Post::find(1);
@@ -169,31 +133,31 @@ $post->comments()->saveMany([
 ]);
 ```
 
-### Multi level Eager Loading
+## 多级预加载
 
-In Laravel you can Eager Load multiple levels in one statement, in this example we not only load the author relation but also the country relation on the author model.
+在Laravel中，你可以在一个语句中预加载多个级别，例如，我们不仅加载作者关系，还加载作者模型上的国家关系。
 
 ```php
 $users = Book::with('author.country')->get();
 ```
 
-### Eager Loading with Exact Columns
+## 精确指定列的预加载
 
-You can do Laravel Eager Loading and specify the exact columns you want to get from the relationship.
+你可以进行Laravel预加载并指定要从关系中获取的精确列。
 
 ```php
 $users = Book::with('author:id,name')->get();
 ```
 
-You can do that even in deeper, second level relationships:
+你甚至可以在更深层的第二级关系中进行指定：
 
 ```php
 $users = Book::with('author.country:id,name')->get();
 ```
 
-### Touch parent updated_at easily
+## 轻松触发父级的 updated_at
 
-If you are updating a record and want to update the `updated_at` column of parent relationship (like, you add new post comment and want `posts.updated_at` to renew), just use `$touches = ['post'];` property on child model.
+如果你正在更新一条记录，并希望更新父关系的 `updated_at` 列（例如，你添加了新的帖子评论，并希望 `posts.updated_at` 更新），只需在子模型上使用 `$touches = ['post'];` 属性。
 
 ```php
 class Comment extends Model
@@ -202,16 +166,15 @@ class Comment extends Model
 }
 ```
 
-### Always Check if Relationship Exists
+## 始终检查关系是否存在
 
-Never **ever** do `$model->relationship->field` without checking if relationship object still exists.
+绝对**不要**在没有检查关系对象是否存在的情况下使用 `$model->relationship->field`。
 
-It may be deleted for whatever reason, outside your code, by someone else's queued job etc.
-Do `if-else`, or `{ { $model->relationship->field ?? '' }}` in Blade, or `{ { optional($model->relationship)->field }}`. With php8 you can even use the nullsafe operator `{ { $model->relationship?->field) }}`
+它可能因为各种原因被删除，例如在你的代码之外，由其他人的队列作业等。在Blade中使用 `if-else` 或 <code v-pre>{{ $model->relationship->field ?? '' }}</code>，或者使用 <code v-pre>{{ optional($model->relationship)->field }}</code>。在 php8 中，你甚至可以使用 nullsafe 运算符 <code v-pre>{{ $model->relationship?->field) }}</code>。
 
-### Use withCount() to Calculate Child Relationships Records
+## 使用 withCount() 计算子关系记录
 
-If you have `hasMany()` relationship, and you want to calculate “children” entries, don’t write a special query. For example, if you have posts and comments on your User model, write this `withCount()`:
+如果你有 `hasMany()` 关系，并且想计算“子”条目，不要编写特殊的查询。例如，如果你的 User 模型上有帖子和评论，可以这样写 `withCount()`：
 
 ```php
 public function index()
@@ -221,27 +184,27 @@ public function index()
 }
 ```
 
-And then, in your Blade file, you will access those number with `{relationship}_count` properties:
+然后，在你的 Blade 文件中，你可以通过 `{relationship}_count` 属性访问这些数字：
 
-```blade
+```php
 @foreach ($users as $user)
 <tr>
-    <td>{{ $user->name }}</td>
-    <td class="text-center">{{ $user->posts_count }}</td>
-    <td class="text-center">{{ $user->comments_count }}</td>
+    <td>{ { $user->name } }</td>
+    <td class="text-center">{ { $user->posts_count } }</td>
+    <td class="text-center">{ { $user->comments_count } }</td>
 </tr>
 @endforeach
 ```
 
-You may also order by that field:
+你也可以按该字段排序:
 
 ```php
 User::withCount('comments')->orderBy('comments_count', 'desc')->get();
 ```
 
-### Extra Filter Query on Relationships
+## 关联关系的额外过滤查询
 
-If you want to load relationship data, you can specify some limitations or ordering in a closure function. For example, if you want to get Countries with only three of their biggest cities, here's the code.
+如果你想加载关系数据，可以在闭包函数中指定一些限制或排序。例如，如果你想获取每个国家的三个最大城市，可以使用以下代码：
 
 ```php
 $countries = Country::with(['cities' => function($query) {
@@ -249,9 +212,9 @@ $countries = Country::with(['cities' => function($query) {
 }])->get();
 ```
 
-### Load Relationships Always, but Dynamically
+## 动态加载关系
 
-You can not only specify what relationships to ALWAYS load with the model, but you can do it dynamically, in the constructor method:
+你不仅可以指定在模型中始终加载哪些关系，还可以在构造函数中动态加载关系：
 
 ```php
 class ProductTag extends Model
@@ -269,9 +232,9 @@ class ProductTag extends Model
 }
 ```
 
-### Instead of belongsTo, use hasMany
+## 使用 hasMany 替代 belongsTo
 
-For `belongsTo` relationship, instead of passing parent's ID when creating child record, use `hasMany` relationship to make a shorter sentence.
+对于 `belongsTo` 关系，在创建子记录时，可以使用 `hasMany` 关系来简化语句。
 
 ```php
 // if Post -> belongsTo(User), and User -> hasMany(Post)...
@@ -289,11 +252,11 @@ auth()->user()->posts()->create([
 ]);
 ```
 
-### Rename Pivot Table
+## 重命名中间表
 
-If you want to rename "pivot" word and call your relationship something else, you just use `->as('name')` in your relationship.
+如果你想将 "pivot" 一词重命名，并使用其他名称来调用你的关系，只需在关系中使用 `->as('name')`。
 
-Model:
+模型:
 
 ```php
 public function podcasts() {
@@ -303,7 +266,7 @@ public function podcasts() {
 }
 ```
 
-Controller:
+控制器:
 
 ```php
 $podcasts = $user->podcasts();
@@ -313,18 +276,18 @@ foreach ($podcasts as $podcast) {
 }
 ```
 
-### Update Parent in One Line
+## 一行中更新父模型
 
-If you have a `belongsTo()` relationship, you can update the Eloquent relationship data in the same sentence:
+如果你有一个 `belongsTo()` 关系，可以在同一条语句中更新 Eloquent 关系数据：
 
 ```php
 // if Project -> belongsTo(User::class)
 $project->user->update(['email' => 'some@gmail.com']);
 ```
 
-### Laravel 7+ Foreign Keys
+## Laravel 7+ 外键
 
-From Laravel 7, in migrations you don't need to write two lines for relationship field - one for the field and one for foreign key. Use method `foreignId()`.
+从 Laravel 7 开始，在迁移中，你不需要为关系字段编写两行代码 - 一行用于字段，一行用于外键。可以使用 `foreignId()` 方法。
 
 ```php
 // Before Laravel 7
@@ -344,9 +307,9 @@ Schema::table('posts', function (Blueprint $table)) {
 }
 ```
 
-### Combine Two "whereHas"
+## 结合两个 "whereHas"
 
-In Eloquent, you can combine `whereHas()` and `orDoesntHave()` in one sentence.
+在 Eloquent 中, 你可以在一条语句中结合使用 `whereHas()` 和 `orDoesntHave()`。
 
 ```php
 User::whereHas('roles', function($query) {
@@ -356,9 +319,10 @@ User::whereHas('roles', function($query) {
 ->get();
 ```
 
-### Check if Relationship Method Exists
+## 检查关联方法是否存在
 
-If your Eloquent relationship names are dynamic and you need to check if relationship with such name exists on the object, use PHP function `method_exists($object, $methodName)`
+
+如果你的 Eloquent 关系名称是动态的，并且你需要检查对象上是否存在具有该名称的关系，请使用 PHP 函数 `method_exists($object, $methodName)`。
 
 ```php
 $user = User::first();
@@ -367,17 +331,17 @@ if (method_exists($user, 'roles')) {
 }
 ```
 
-### Pivot Table with Extra Relations
+## 带有额外关联的中间表
 
-In many-to-many relationship, your pivot table may contain extra fields, and even extra relationships to other Model.
+在多对多关系中，你的中间表可能包含额外的字段，甚至与其他模型之间建立额外的关联。
 
-Then generate a separate Pivot Model:
+然后，生成一个单独的 Pivot 模型：
 
 ```bash
 php artisan make:model RoleUser --pivot
 ```
 
-Next, specify it in `belongsToMany()` with `->using()` method. Then you could do magic, like in the example.
+接下来，在 `belongsToMany()` 中使用 `->using()` 方法指定它。然后你可以像示例中那样进行操作。
 
 ```php
 // in app/Models/User.php
@@ -403,9 +367,9 @@ class RoleUser extends Pivot
 $firstTeam = auth()->user()->roles()->first()->pivot->team->name;
 ```
 
-### Load Count on-the-fly
+## 实时加载计数
 
-In addition to Eloquent's `withCount()` method to count related records, you can also load the count on-the-fly, with `loadCount()`:
+除了 Eloquent 的 `withCount()` 方法用于计算相关记录的数量之外，你还可以使用 `loadCount()` 方法实时加载计数：
 
 ```php
 // if your Book hasMany Reviews...
@@ -420,8 +384,9 @@ $book->loadCount(['reviews' => function ($query) {
 }]);
 ```
 
-### Randomize Relationship Order
+## 随机排序关联关系
 
+你可以使用 `inRandomOrder()` 方法随机排序 Eloquent 查询结果，还可以用它来随机排序查询中加载的**关联**条目。
 You can use `inRandomOrder()` to randomize Eloquent query result, but also you can use it to randomize the **relationship** entries you're loading with query.
 
 ```php
@@ -436,13 +401,13 @@ $questions = Question::with(['answers' => function($q) {
 }])->inRandomOrder()->get();
 ```
 
-### Filter hasMany relationships
+## 过滤 hasMany 关联关系
 
-Just a code example from my project, showing the possibility of filtering hasMany relationships.
+这是我项目中的一个代码示例，展示了过滤 hasMany 关联关系的可能性。
 
 TagTypes -> hasMany Tags -> hasMany Examples
 
-And you wanna query all the types, with their tags, but only those that have examples, ordering by most examples.
+你想查询所有类型及其标签，但仅包括具有示例的标签，并按示例最多的方式排序。
 
 ```php
 $tag_types = TagType::with(['tags' => function ($query) {
@@ -452,9 +417,9 @@ $tag_types = TagType::with(['tags' => function ($query) {
     }])->get();
 ```
 
-### Filter by many-to-many relationship pivot column
+## 根据多对多关系的中间表列进行筛选
 
-If you have a many-to-many relationship, and you add an extra column to the pivot table, here's how you can order by it when querying the list.
+如果你有一个多对多关系，并在中间表中添加了额外的列，以下是在查询列表时如何按此列排序的方法。
 
 ```php
 class Tournament extends Model
@@ -477,9 +442,9 @@ class TournamentsController extends Controller
 }
 ```
 
-### A shorter way to write whereHas
+## 更简洁的 whereHas 写法
 
-Released in Laravel 8.57: a shorter way to write whereHas() with a simple condition inside.
+在 Laravel 8.57 中发布：使用简单条件在 whereHas() 中更简洁的写法。
 
 ```php
 // Before
@@ -491,7 +456,7 @@ User::whereHas('posts', function ($query) {
 User::whereRelation('posts', 'published_at', '>', now())->get();
 ```
 
-### You can add conditions to your relationships
+## 你可以为关联关系添加条件
 
 ```php
 class User
@@ -515,13 +480,13 @@ class User
 }
 ```
 
-Tip given by [@anwar_nairi](https://twitter.com/anwar_nairi/status/1441718371335114756)
+Tip 来自 [@anwar_nairi](https://twitter.com/anwar_nairi/status/1441718371335114756)
 
-### New `whereBelongsTo()` Eloquent query builder method
+## 新的 `whereBelongsTo()` Eloquent 查询构建器方法
 
-Laravel 8.63.0 ships with a new `whereBelongsTo()` Eloquent query builder method. Smiling face with heart-shaped eyes
+Laravel 8.63.0 引入了新的 `whereBelongsTo()` Eloquent 查询构建器方法。😍
 
-This allows you to remove BelongsTo foreign key names from your queries, and use the relationship method as a single source of truth instead!
+这使你可以从查询中删除 BelongsTo 外键名称，并将关联方法作为唯一的真实来源！
 
 ```php
 // From:
@@ -541,11 +506,11 @@ Post::query()
 $query->whereBelongsTo($author, 'author')
 ```
 
-Tip given by [@danjharrin](https://twitter.com/danjharrin/status/1445406334405459974)
+Tip 来自 [@danjharrin](https://twitter.com/danjharrin/status/1445406334405459974)
 
-### The `is()` method of one-to-one relationships for comparing models
+##  `is()` 方法用于比较一对一关联模型
 
-We can now make comparisons between related models without further database access.
+现在我们可以在不进行进一步数据库访问的情况下比较相关模型。
 
 ```php
 // BEFORE: the foreign key is taken from the Post model
@@ -558,9 +523,9 @@ $post->author->is($user);
 $post->author()->is($user);
 ```
 
-Tip given by [@PascalBaljet](https://twitter.com/pascalbaljet)
+Tip 来自 [@PascalBaljet](https://twitter.com/pascalbaljet)
 
-### `whereHas()` multiple connections
+## `whereHas()` 多个连接
 
 ```php
 // User Model
@@ -591,11 +556,11 @@ $posts = Post::whereHas('user', function ($query) use ($request) {
   })->get();
 ```
 
-Tip given by [@adityaricki](https://twitter.com/adityaricki2)
+Tip 来自 [@adityaricki](https://twitter.com/adityaricki2)
 
-### Update an existing pivot record
+## 更新现有的中间表记录
 
-If you want to update an existing pivot record on the table, use `updateExistingPivot` instead of `syncWithPivotValues`.
+如果要更新表中的现有中间表记录，请使用 `updateExistingPivot` 而不是 `syncWithPivotValues`。
 
 ```php
 // Migrations
@@ -612,11 +577,11 @@ $user->roles()->updateExistingPivot(
 );
 ```
 
-Tip given by [@sky_0xs](https://twitter.com/sky_0xs/status/1461414850341621760)
+Tip 来自 [@sky_0xs](https://twitter.com/sky_0xs/status/1461414850341621760)
 
-### Relation that will get the newest (or oldest) item
+## 获取最新（或最旧）的项目的关联
 
-New in Laravel 8.42: In an Eloquent model can define a relation that will get the newest (or oldest) item of another relation.
+在 Laravel 8.42 中新增的功能：在 Eloquent 模型中，可以定义一个关联，用于获取另一个关联的最新（或最旧）项目。
 
 ```php
 public function historyItems(): HasMany
@@ -634,7 +599,7 @@ public function latestHistoryItem(): HasOne
 }
 ```
 
-### Replace your custom queries with ofMany
+## 使用 ofMany 替代自定义查询
 
 ```php
 class User extends Authenticable {
@@ -645,9 +610,9 @@ class User extends Authenticable {
 }
 ```
 
-Tip given by [@LaravelEloquent](https://twitter.com/LaravelEloquent/status/1493324310328578054)
+Tip 来自 [@LaravelEloquent](https://twitter.com/LaravelEloquent/status/1493324310328578054)
 
-### Avoid data leakage when using orWhere on a relationship
+## 在关联上使用 orWhere 时避免数据泄漏
 
 ```php
 $user->posts()
@@ -656,7 +621,7 @@ $user->posts()
     ->get();
 ```
 
-Returns: ALL posts where votes are greater than or equal to 100 are returned
+返回：返回所有投票大于或等于100的帖子
 
 ```sql
 select * from posts where user_id = ? and active = 1 or votes >= 100
@@ -673,10 +638,10 @@ $users->posts()
     ->get();
 ```
 
-Returns: Users posts where votes are greater than or equal to 100 are returned
+返回：返回投票大于或等于100的用户帖子
 
 ```sql
 select * from posts where user_id = ? and (active = 1 or votes >= 100)
 ```
 
-Tip given by [@BonnickJosh](https://twitter.com/BonnickJosh/status/1494779780562096139)
+Tip 来自 [@BonnickJosh](https://twitter.com/BonnickJosh/status/1494779780562096139)

@@ -1,41 +1,16 @@
-## Validation
+# 表单验证
 
-⬆️ [Go to main menu](README.md#laravel-tips) ⬅️ [Previous (Routing)](routing.md) ➡️ [Next (Collections)](collections.md)
+⬆️ [回到主页](README.md#laravel-tips) ⬅️ [上一条 (路由)](routing.md) ➡️ [下一条 (集合)](collections.md)
 
-- [Image validation](#image-validation)
-- [Add Values to the Form Request After Validation](#add-values-to-the-form-request-after-validation)
-- [Access model binding in FormRequests](#access-model-binding-in-formrequests)
-- [Rule which ensures the field under validation is required if another field is accepted](#rule-which-ensures-the-field-under-validation-is-required-if-another-field-is-accepted)
-- [Custom validation error messages](#custom-validation-error-messages)
-- [Validate dates with "now" or "yesterday" words](#validate-dates-with-now-or-yesterday-words)
-- [Validation Rule with Some Conditions](#validation-rule-with-some-conditions)
-- [Change Default Validation Messages](#change-default-validation-messages)
-- [Prepare for Validation](#prepare-for-validation)
-- [Stop on First Validation Error](#stop-on-first-validation-error)
-- [Throw 422 status code without using validate() or Form Request](#throw-422-status-code-without-using-validate-or-form-request)
-- [Rules depending on some other conditions](#rules-depending-on-some-other-conditions)
-- [With Rule::when() we can conditionally apply validation rules](#with-rulewhen-we-can-conditionally-apply-validation-rules)
-- [Use this property in the request classes to stop the validation of the whole request attributes](#use-this-property-in-the-request-classes-to-stop-the-validation-of-the-whole-request-attributes)
-- [Rule::unique doesn't take into the SoftDeletes Global Scope applied on the Model](#ruleunique-doesnt-take-into-the-softdeletes-global-scope-applied-on-the-model)
-- [Validator::sometimes() method allows us to define when a validation rule should be applied](#validatorsometimes-method-allows-us-to-define-when-a-validation-rule-should-be-applied)
-- [Array elements validation](#array-elements-validation)
-- [Password::defaults method](#passworddefaults-method)
-- [Form Requests for validation redirection](#form-requests-for-validation-redirection)
-- [Mac validation rule](#mac-validation-rule)
-- [Validate email with TLD domain required](#validate-email-with-tld-domain-required)
-- [New array validation rule required_array_keys](#new-array-validation-rule-required_array_keys)
-- [Position placeholder in validation messages](#position-placeholder-in-validation-messages)
-- [Exclude validation value](#exclude-validation-value)
+## 图像验证
 
-### Image validation
-
-While validating uploaded images, you can specify the dimensions you require.
+在验证上传的图像时，你可以指定所需的尺寸。
 
 ```php
 ['photo' => 'dimensions:max_width=4096,max_height=4096']
 ```
 
-### Add Values to the Form Request After Validation
+## 验证后向表单请求添加值
 
 ```php
 class UpdatedBookRequest extends FormRequent
@@ -49,11 +24,11 @@ class UpdatedBookRequest extends FormRequent
 }
 ```
 
-### Access model binding in FormRequests
+## 在 FormRequests 中访问模型绑定
 
-When using FormRequests, you can always access the binding model by simply using the following expression `$𝘁𝗵𝗶𝘀->{𝗿𝗼𝘂𝘁𝗲-𝗯𝗶𝗻𝗱𝗶𝗻𝗴-𝘃𝗮𝗿𝗶𝗮𝗯𝗹𝗲}`
+使用 FormRequests 时，您可以通过简单地使用以下表达式 `$𝘁𝗵𝗶𝘀->{𝗿𝗼𝘂𝘁𝗲-𝗯𝗶𝗻𝗱𝗶𝗻𝗴-𝘃𝗮𝗿𝗶𝗮𝗯𝗹𝗲}` 来访问绑定模型。
 
-Here's an example.
+这是一个例子。
 
 ```php
 class CommunityController extends Controller
@@ -82,11 +57,12 @@ class CommunityUpdateRequest extends FormRequest
 }
 ```
 
-Tip given by [@bhaidar](https://twitter.com/bhaidar/status/1574715518501666817)
+Tip 来自 [@bhaidar](https://twitter.com/bhaidar/status/1574715518501666817)
 
-### Rule which ensures the field under validation is required if another field is accepted
+## 确保验证字段必填的规则，如果另一个字段被接受
 
-You can use `required_if_accepted` validation rule which ensures the field under validation is required if another field is accepted (a value of yes, on, 1, or true).
+您可以使用 `required_if_accepted` 验证规则，该规则确保如果另一个字段被接受（值为 yes、on、1 或 true）则验证字段必填。
+
 ```php
 Validator::make([
      'is_company' => 'on',
@@ -97,11 +73,11 @@ Validator::make([
 ]);
 ```
 
-Tip given by [@iamgurmandeep](https://twitter.com/iamgurmandeep/status/1583420332693749761)
+Tip 来自 [@iamgurmandeep](https://twitter.com/iamgurmandeep/status/1583420332693749761)
 
-### Custom validation error messages
+## 自定义验证错误消息
 
-You can customize validation error messages per **field**, **rule** and **language** - just create a specific language file `resources/lang/xx/validation.php` with appropriate array structure.
+您可以根据 **字段**、**规则** 和 **语言** 自定义验证错误消息 - 只需创建一个特定的语言文件 `resources/lang/xx/validation.php` 并具有适当的数组结构。
 
 ```php
 'custom' => [
@@ -111,9 +87,9 @@ You can customize validation error messages per **field**, **rule** and **langua
 ],
 ```
 
-### Validate dates with "now" or "yesterday" words
+## 使用 "now" 或 "yesterday" 单词验证日期
 
-You can validate dates by rules before/after and passing various strings as a parameter, like: `tomorrow`, `now`, `yesterday`. Example: `'start_date' => 'after:now'`. It's using strtotime() under the hood.
+您可以通过规则 before / after 和传递各种字符串作为参数来验证日期，例如：`tomorrow`、`now`、`yesterday`。示例：`'start_date' => 'after:now'`。它在底层使用了 strtotime() 函数。
 
 ```php
 $rules = [
@@ -122,9 +98,9 @@ $rules = [
 ];
 ```
 
-### Validation Rule with Some Conditions
+## 具有某些条件的验证规则
 
-If your validation rules depend on some condition, you can modify the rules by adding `withValidator()` to your `FormRequest` class, and specify your custom logic there. Like, if you want to add validation rule only for some user role.
+如果您的验证规则依赖于某些条件，您可以通过在 `FormRequest` 类中添加 `withValidator()` 方法来修改规则，并在其中指定自定义逻辑。例如，如果您只想为某些用户角色添加验证规则。
 
 ```php
 use Illuminate\Validation\Validator;
@@ -137,9 +113,9 @@ class StoreBlogCategoryRequest extends FormRequest {
 }
 ```
 
-### Change Default Validation Messages
+## 更改默认的验证错误消息
 
-If you want to change default validation error message for specific field and specific validation rule, just add a `messages()` method into your `FormRequest` class.
+如果您想为特定字段和特定验证规则更改默认的验证错误消息，只需在 `FormRequest` 类中添加一个 `messages()` 方法。
 
 ```php
 class StoreUserRequest extends FormRequest
@@ -156,9 +132,9 @@ class StoreUserRequest extends FormRequest
 }
 ```
 
-### Prepare for Validation
+## 验证准备
 
-If you want to modify some field before default Laravel validation, or, in other words, "prepare" that field, guess what - there's a method `prepareForValidation()` in `FormRequest` class:
+如果您想在默认的 Laravel 验证之前修改某个字段，或者换句话说，"准备" 该字段，那么你猜对了 - `FormRequest` 类中有一个 `prepareForValidation()` 方法：
 
 ```php
 protected function prepareForValidation()
@@ -169,9 +145,9 @@ protected function prepareForValidation()
 }
 ```
 
-### Stop on First Validation Error
+## 在第一个验证错误时停止
 
-By default, Laravel validation errors will be returned in a list, checking all validation rules. But if you want the process to stop after the first error, use validation rule called `bail`:
+默认情况下，Laravel 验证错误将以列表形式返回，检查所有验证规则。但是，如果您希望在第一个错误后停止验证过程，请使用名为 `bail` 的验证规则：
 
 ```php
 $request->validate([
@@ -180,15 +156,15 @@ $request->validate([
 ]);
 ```
 
-If you need to stop validation on the first error in `FormRequest` class, you can set `stopOnFirstFailure` property to `true`:
+如果您需要在 `FormRequest` 类中在第一个错误时停止验证，您可以将 `stopOnFirstFailure` 属性设置为 `true`：
 
 ```php
 protected $stopOnFirstFailure = true;
 ```
 
-### Throw 422 status code without using validate() or Form Request
+## 在不使用 validate() 或 Form Request 的情况下抛出 422 状态码
 
-If you don't use validate() or Form Request, but still need to throw errors with the same 422 status code and error structure, you can do it manually `throw ValidationException::withMessages()`
+如果您不使用 validate() 或 Form Request，但仍然需要使用相同的 422 状态码和错误结构抛出错误，您可以手动使用 `throw ValidationException::withMessages()` 进行操作。
 
 ```php
 if (! $user || ! Hash::check($request->password, $user->password)) {
@@ -198,9 +174,9 @@ if (! $user || ! Hash::check($request->password, $user->password)) {
 }
 ```
 
-### Rules depending on some other conditions
+## 根据其他条件创建动态规则
 
-If your rules are dynamic and depend on some other condition, you can create that array of rules on the fly
+如果您的规则是动态的，并且依赖于其他条件，您可以即时创建该规则数组。
 
 ```php
     public function store(Request $request)
@@ -226,11 +202,11 @@ If your rules are dynamic and depend on some other condition, you can create tha
     }
 ```
 
-### With Rule::when() we can conditionally apply validation rules
+## 使用 Rule::when() 可以有条件地应用验证规则
 
-Thanks to Rule::when() we can conditionally apply validation rules in laravel.
+感谢 Rule::when() 我们可以在 Laravel中 有条件地应用验证规则
 
-In this example we validate the value of the vote only if the user can actually vote the post.
+在这个例子中，我们只有在用户实际可以对帖子进行投票时才验证投票的值。
 
 ```php
 use Illuminate\Validation\Rule;
@@ -243,15 +219,15 @@ public function rules()
 }
 ```
 
-Tip given by [@cerbero90](https://twitter.com/cerbero90/status/1434426076198014976)
+Tip 来自 [@cerbero90](https://twitter.com/cerbero90/status/1434426076198014976)
 
-### Use this property in the request classes to stop the validation of the whole request attributes
+## 在请求类中使用这个属性来停止对整个请求属性的验证
 
-Use this property in the request classes to stop the validation of the whole request attributes.
+在请求类中使用这个属性来停止对整个请求属性的验证。
 
-Hint Direct
+直接提示
 
-This is different from `Bail` rule that stops the validation for just a single attribute if one of its rules doesn't validate.
+这与 `Bail` 规则不同，如果其中一个规则不验证，它将仅停止对单个属性的验证。
 
 ```php
 /**
@@ -262,25 +238,25 @@ This is different from `Bail` rule that stops the validation for just a single a
 protected $stopOnFirstFailure = true;
 ```
 
-Tip given by [@Sala7JR](https://twitter.com/Sala7JR/status/1436172331198603270)
+Tip 来自 [@Sala7JR](https://twitter.com/Sala7JR/status/1436172331198603270)
 
-### Rule::unique doesn't take into the SoftDeletes Global Scope applied on the Model
+## Rule::unique 不考虑应用于模型的 SoftDeletes 全局作用域
 
-Strange that `Rule::unique` doesn't take into the SoftDeletes Global Scope applied on the Model, by default.
+奇怪的是，`Rule::unique` 默认情况下不考虑应用于模型的 SoftDeletes 全局作用域。
 
-But `withoutTrashed()` method is available
+但是可以使用 `withoutTrashed()` 方法
 
 ```php
 Rule::unique('users', 'email')->withoutTrashed();
 ```
 
-Tip given by [@Zubairmohsin33](https://twitter.com/Zubairmohsin33/status/1438490197956702209)
+Tip 来自 [@Zubairmohsin33](https://twitter.com/Zubairmohsin33/status/1438490197956702209)
 
-### Validator::sometimes() method allows us to define when a validation rule should be applied
+## Validator::sometimes() 方法允许我们定义何时应用验证规则
 
-The laravel `Validator::sometimes()` method allows us to define when a validation rule should be applied, based on the input provided.
+laravel 的 `Validator::sometimes()` 方法允许我们根据提供的输入定义何时应用验证规则。
 
-The snippet shows how to prohibit the use of a coupon if the quantity of the purchased items is not enough.
+以下代码片段展示了如果购买的物品数量不足，如何禁止使用优惠券。
 
 ```php
 $data = [
@@ -312,11 +288,11 @@ $validator->sometimes('coupon', 'prohibited', function (Fluent $data) {
 $validator->validate();
 ```
 
-Tip given by [@cerbero90](https://twitter.com/cerbero90/status/1440226037972013056)
+Tip 来自 [@cerbero90](https://twitter.com/cerbero90/status/1440226037972013056)
 
-### Array elements validation
+## 数组元素验证
 
-If you want to validate elements of an array that you submited use dot notation in rules with '\*'
+如果您想验证提交的数组的元素，请在规则中使用点表示法和 '*'
 
 ```php
 // say you have this array
@@ -339,11 +315,11 @@ $rules = [
 ];
 ```
 
-Tip given by [HydroMoon](https://github.com/HydroMoon)
+Tip 来自 [HydroMoon](https://github.com/HydroMoon)
 
-### Password::defaults method
+## Password::defaults 方法
 
-You can enforce specific rules when validating user-supplied passwords by using the Password::defaults method. It includes options for requiring letters, numbers, symbols, and more.
+您可以使用 Password::defaults 方法在验证用户提供的密码时强制使用特定规则。它包括要求字母、数字、符号等选项。
 
 ```php
 class AppServiceProvider
@@ -366,14 +342,14 @@ request()->validate([
 ])
 ```
 
-Tip given by [@mattkingshott](https://twitter.com/mattkingshott/status/1463190613260603395)
+Tip 来自 [@mattkingshott](https://twitter.com/mattkingshott/status/1463190613260603395)
 
-### Form Requests for validation redirection
+## 用于验证重定向的表单请求
 
-when using Form Requests for validation, by default the validation error will redirect back to the previous page, but you can override it.
-Just define the property of `$redirect` or `$redirectRoute`.
+当使用表单请求进行验证时，默认情况下，验证错误将重定向回到上一页，但您可以进行覆盖。
+只需定义 `$redirect` 或 `$redirectRoute` 属性。
 
-[Link to docs](https://laravel.com/docs/master/validation#customizing-the-redirect-location)
+[文档链接](https://laravel.com/docs/master/validation#customizing-the-redirect-location)
 
 ```php
 // The URI that users should be redirected to if validation fails./
@@ -383,9 +359,9 @@ protected $redirect = '/dashboard';
 protected $redirectRoute = 'dashboard';
 ```
 
-### Mac validation rule
+## Mac 地址验证规则
 
-New mac_address validation rule added in Laravel 8.77
+Laravel 8.77 中新增了 mac_address 验证规则
 
 ```php
 $trans = $this->getIlluminateArrayTranslator();
@@ -393,13 +369,13 @@ $validator = new Validator($trans, ['mac' => '01-23-45-67-89-ab'], ['mac' => 'ma
 $this->assertTrue($validator->passes());
 ```
 
-Tip given by [@Teacoders](https://twitter.com/Teacoders/status/1475500006673027072)
+Tip 来自 [@Teacoders](https://twitter.com/Teacoders/status/1475500006673027072)
 
-### Validate email with TLD domain required
+## 验证要求带有 tld 域名的电子邮件
 
-By default, the `email` validation rule will accept an email without tld domain (ie: `taylor@laravel`, `povilas@ldaily`)
+默认情况下，`email` 验证规则将接受没有 tld 域名的电子邮件（例如：`taylor@laravel`，`povilas@ldaily`）
 
-But if you want to make sure the email must have a tld domain (ie: `taylor@laravel.com`, `povilas@ldaily.com`), use `email:filter` rule.
+但是，如果您希望确保电子邮件必须具有 tld 域名（例如：`taylor@laravel.com`，`povilas@ldaily.com`），请使用 `email:filter` 规则。
 
 ```php
 [
@@ -408,13 +384,13 @@ But if you want to make sure the email must have a tld domain (ie: `taylor@larav
 ],
 ```
 
-Tip given by [@Chris1904](https://laracasts.com/discuss/channels/general-discussion/laravel-58-override-email-validation-use-57-rules?replyId=645613)
+Tip 来自 [@Chris1904](https://laracasts.com/discuss/channels/general-discussion/laravel-58-override-email-validation-use-57-rules?replyId=645613)
 
-### New array validation rule required_array_keys
+## 新的数组验证规则 required_array_keys
 
-Laravel 8.82 adds a `required_array_keys` validation rule. The rule checks that all of the specified keys exist in an array.
+Laravel 8.82 添加了 `required_array_keys` 验证规则。该规则检查数组中是否存在所有指定的键。
 
-Valid data that would pass the validation:
+以下是通过验证的有效数据：
 
 ```php
 $data = [
@@ -436,7 +412,7 @@ $validator = Validator::make($data, $rules);
 $validator->passes(); // true
 ```
 
-Invalid data that would fail the validation:
+以下是未通过验证的无效数据：
 
 ```php
 $data = [
@@ -457,13 +433,13 @@ $validator = Validator::make($data, $rules);
 $validator->passes(); // false
 ```
 
-Tip given by [@AshAllenDesign](https://twitter.com/AshAllenDesign/status/1488853052765478914)
+Tip 来自 [@AshAllenDesign](https://twitter.com/AshAllenDesign/status/1488853052765478914)
 
-### Position placeholder in validation messages
+## 在验证消息中使用位置占位符
 
-In Laravel 9 you can use the :position placeholder in validation messages if you're working with arrays.
+在 Laravel 9 中，如果您正在使用数组，可以在验证消息中使用 :position 占位符。
 
-This will output: "Please provide an amount for price #2"
+这将输出："Please provide an amount for price #2"
 
 ```php
 class CreateProductRequest extends FormRequest
@@ -486,11 +462,11 @@ class CreateProductRequest extends FormRequest
 }
 ```
 
-Tip given by [@mmartin_joo](https://twitter.com/mmartin_joo/status/1502299053635235842)
+Tip 来自 [@mmartin_joo](https://twitter.com/mmartin_joo/status/1502299053635235842)
 
-### Exclude validation value
+## 排除验证值
 
-When you need to validate a field, but don't actually require it for anything e.g. 'accept terms and conditions', make use of the `exclude` rule. That way, the `validated` method won't return it...
+当您需要验证一个字段，但实际上不需要它 例如 'accept terms and conditions'，可以使用 `exclude` 规则。这样，`validated` 方法不会返回它....
 
 ```php
 class StoreRequest extends FormRequest
@@ -520,5 +496,5 @@ class RegistrationController extends Controller
     }
 ```
 
-Tip given by [@mattkingshott](https://twitter.com/mattkingshott/status/1518590652682063873)
+Tip 来自 [@mattkingshott](https://twitter.com/mattkingshott/status/1518590652682063873)
 
