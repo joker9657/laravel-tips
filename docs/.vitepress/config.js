@@ -20,7 +20,7 @@ export default defineConfig({
                     { text: '用户授权', link: '/auth'},
                     { text: '发送邮件', link: '/mail'},
                     { text: 'Artisan 命令行', link: '/artisan'},
-                    { text: '工厂模式', link: '/factories'},
+                    { text: '工厂', link: '/factories'},
                     { text: '日志和调试', link: '/log-and-debug'},
                     { text: 'API', link: '/api'},
                     { text: '其他', link: '/other'},

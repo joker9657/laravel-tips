@@ -107,7 +107,7 @@ Tip 来自 [@cosmeescobedo](https://twitter.com/cosmeescobedo/status/15683921847
 
 ## 在不修改 updated_at 字段的情况下执行操作
 
-如果您想在模型没有修改 `updated_at` 时间戳的情况下执行模型操作，您可以在传递给 `withoutTimestamps` 方法的闭包中操作模型。
+如果你想在模型没有修改 `updated_at` 时间戳的情况下执行模型操作，你可以在传递给 `withoutTimestamps` 方法的闭包中操作模型。
 
 从 Laravel 9.31 版本开始可用。
 
@@ -252,7 +252,7 @@ $products = Product::whereTime('created_at', '=', '14:13:58')->get();
 
 ## 增加和减少
 
-如果您想要在某个表中递增某列，只需使用 `increment()` 函数。噢，您不仅可以递增1，还可以递增一些数字，比如50。
+如果你想要在某个表中递增某列，只需使用 `increment()` 函数。噢，你不仅可以递增1，还可以递增一些数字，比如50。
 
 ```php
 Post::find($post_id)->increment('view_count');
@@ -261,7 +261,7 @@ User::find($user_id)->increment('points', 50);
 
 ## 不使用时间戳列
 
-如果您的数据库表中不包含 `created_at` 和 `updated_at` 时间戳字段，您可以通过设置 `$timestamps = false` 属性来指定 Eloquent 模型不使用它们。
+如果你的数据库表中不包含 `created_at` 和 `updated_at` 时间戳字段，你可以通过设置 `$timestamps = false` 属性来指定 Eloquent 模型不使用它们。
 
 ```php
 class Company extends Model
@@ -272,7 +272,7 @@ class Company extends Model
 
 ## 软删除：批量恢复
 
-在使用软删除时，您可以一次恢复多行数据。
+在使用软删除时，你可以一次恢复多行数据。
 
 ```php
 Post::onlyTrashed()->where('author_id', 1)->restore();
@@ -280,7 +280,7 @@ Post::onlyTrashed()->where('author_id', 1)->restore();
 
 ## 模型全部：列
 
-在调用 Eloquent 的 `Model::all()` 方法时，您可以指定要返回的列。
+在调用 Eloquent 的 `Model::all()` 方法时，你可以指定要返回的列。
 
 ```php
 $users = User::all(['id', 'name', 'email']);
@@ -296,7 +296,7 @@ $user = User::where('email', 'povilas@laraveldaily.com')->firstOrFail();
 
 ## 更改列名
 
-在Eloquent查询构建器中，您可以使用 "as" 来返回具有不同名称的任何列，就像在普通的SQL查询中一样。
+在Eloquent查询构建器中，你可以使用 "as" 来返回具有不同名称的任何列，就像在普通的SQL查询中一样。
 
 ```php
 $users = DB::table('users')->select('name', 'email as user_email')->get();
@@ -304,7 +304,7 @@ $users = DB::table('users')->select('name', 'email as user_email')->get();
 
 ## 映射查询结果
 
-在Eloquent查询之后，您可以使用集合的 `map()` 函数来修改行数据。
+在Eloquent查询之后，你可以使用集合的 `map()` 函数来修改行数据。
 
 ```php
 $users = User::where('role_id', 1)->get()->map(function (User $user) {
@@ -1646,7 +1646,7 @@ class TimestampsCast implements CastsAttributes
 
 ```
 
-然后您可以在模型类中实现强制转换。
+然后你可以在模型类中实现强制转换。
 
 ```php
 <?php
@@ -1678,9 +1678,9 @@ Tip 来自 [@AhmedRezk](https://github.com/AhmedRezk59)
 
 ## 当搜索第一条记录时，你可以执行一些操作
 
-当搜索第一条记录时，如果找不到，您可以执行一些操作。`firstOrFail()` 会抛出一个 404 异常。
+当搜索第一条记录时，如果找不到，你可以执行一些操作。`firstOrFail()` 会抛出一个 404 异常。
 
-您可以使用 `firstOr(function() {})` 来替代。Laravel 已经为您做好了准备。
+你可以使用 `firstOr(function() {})` 来替代。Laravel 已经为你做好了准备。
 
 ```php
 $book = Book::whereCount('authors')
@@ -1697,7 +1697,7 @@ Tip 来自 [@bhaidar](https://twitter.com/bhaidar/status/1487757487566639113/)
 
 ## 直接将 created_at 日期转换为人类可读格式
 
-你知道吗？您可以直接将 created_at 日期转换为人类可读的格式，比如"1分钟前"、"1个月前"，使用 diffForHumans() 函数。Laravel Eloquent 默认在  created_at 字段上启用了 Carbon 实例。
+你知道吗？你可以直接将 created_at 日期转换为人类可读的格式，比如"1分钟前"、"1个月前"，使用 diffForHumans() 函数。Laravel Eloquent 默认在  created_at 字段上启用了 Carbon 实例。
 
 ```php
 $post = Post::whereId($id)->first();
@@ -1765,7 +1765,7 @@ Tip 来自 [@bhaidar](https://twitter.com/bhaidar/status/1490671693618053123)
 
 ## 检查特定模型是否已创建或找到
 
-如果您想检查特定模型是否已创建或找到，请使用 `wasRecentlyCreated` 模型属性。
+如果你想检查特定模型是否已创建或找到，请使用 `wasRecentlyCreated` 模型属性。
 
 ```php
 $user = User::create([
@@ -1783,7 +1783,7 @@ Tip 来自 [@sky_0xs](https://twitter.com/sky_0xs/status/1491141790015320064)
 
 ## 使用数据库驱动的 Laravel Scout
 
-在 Laravel v9 中，您可以使用具有数据库驱动的 Laravel Scout（搜索）。不再需要使用 where 语句！
+在 Laravel v9 中，你可以使用具有数据库驱动的 Laravel Scout（搜索）。不再需要使用 where 语句！
 
 ```php
 $companies = Company::search(request()->get('search'))->paginate(15);
@@ -1793,7 +1793,7 @@ Tip 来自 [@magarrent](https://twitter.com/magarrent/status/1493221422675767302
 
 ## 在查询构建器上使用 value 方法
 
-在查询构建器上使用 `value` 方法可以执行更高效的查询，当您只需要检索单个列时。
+在查询构建器上使用 `value` 方法可以执行更高效的查询，当你只需要检索单个列时。
 
 ```php
 // Before (fetches all columns on the row)
@@ -1807,7 +1807,7 @@ Tip 来自 [@mattkingshott](https://twitter.com/mattkingshott/status/14935834442
 
 ## 将数组传递给 where 方法
 
-在 Laravel 中，您可以将数组传递给 `where` 方法。
+在 Laravel 中，你可以将数组传递给 `where` 方法。
 
 ```php
 // Instead of this
@@ -1825,7 +1825,7 @@ Tip 来自 [@cosmeescobedo](https://twitter.com/cosmeescobedo/status/14956267522
 
 ## 从模型集合中返回主键
 
-您知道 `modelsKeys()` 是 Eloquent 集合方法吗？它返回模型集合的主键。
+你知道 `modelsKeys()` 是 Eloquent 集合方法吗？它返回模型集合的主键。
 
 ```php
 $users = User::active()->limit(3)->get();
@@ -1837,13 +1837,13 @@ Tip 来自 [@iamharis010](https://twitter.com/iamharis010/status/149581680791089
 
 ## 强制Laravel使用贪婪加载
 
-如果您想要在应用程序中阻止延迟加载，您只需要在 `AppServiceProvider` 的 `boot()` 方法中添加以下代码行。
+如果你想要在应用程序中阻止延迟加载，你只需要在 `AppServiceProvider` 的 `boot()` 方法中添加以下代码行。
 
 ```php
 Model::preventLazyLoading();
 ```
 
-但是，如果您只想在本地开发环境中启用此功能，您可以在代码中进行更改：
+但是，如果你只想在本地开发环境中启用此功能，你可以在代码中进行更改：
 
 ```php
 Model::preventLazyLoading(!app()->isProduction());
@@ -1855,25 +1855,25 @@ Tip 来自 [@CatS0up](https://github.com/CatS0up)
 
 出于安全原因，这不是一种推荐的方法，但是可以实现。
 
-当您想要这样做时，您不需要为每个模型设置一个空的 `$guarded` 数组，像这样：
+当你想要这样做时，你不需要为每个模型设置一个空的 `$guarded` 数组，像这样：
 
 ```php
 protected $guarded = [];
 ```
 
-您可以从一个地方做到这一点，只需在 `AppServiceProvider` 的 `boot()` 方法中添加以下行：
+你可以从一个地方做到这一点，只需在 `AppServiceProvider` 的 `boot()` 方法中添加以下行：
 
 ```php
 Model::unguard();
 ```
 
-现在，您的所有模型都可以进行批量赋值。
+现在，你的所有模型都可以进行批量赋值。
 
 Tip 来自 [@CatS0up](https://github.com/CatS0up)
 
 ## 隐藏选择所有语句中的列
 
-如果您使用的是 Laravel v8.78 及更高版本，以及 MySQL 8.0.23 及更高版本，您可以将选择的列定义为"不可见"。被定义为 `invisible` 的列将在 `select *` 语句中隐藏。
+如果你使用的是 Laravel v8.78 及更高版本，以及 MySQL 8.0.23 及更高版本，你可以将选择的列定义为"不可见"。被定义为 `invisible` 的列将在 `select *` 语句中隐藏。
 
 但是，要做到这一点，我们必须在迁移中使用 `invisible()` 方法，类似于以下示例：
 

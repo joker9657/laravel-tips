@@ -1,20 +1,10 @@
-## API
+# API
 
-⬆️ [Go to main menu](README.md#laravel-tips) ⬅️ [Previous (Log and debug)](log-and-debug.md) ➡️ [Next (Other)](other.md)
+⬆️ [回到主页](README.md#laravel-tips) ⬅️ [上一条 (日志和调试)](log-and-debug.md) ➡️ [下一条 (其他)](other.md)
 
-- [API Resources: With or Without "data"?](#api-resources-with-or-without-data)
-- [Conditional Relationship Counts on API Resources](#conditional-relationship-counts-on-api-resources)
-- [API Return "Everything went ok"](#api-return-everything-went-ok)
-- [Avoid N+1 queries in API resources](#avoid-n1-queries-in-api-resources)
-- [Get Bearer Token from Authorization header](#get-bearer-token-from-authorization-header)
-- [Sorting Your API Results](#sorting-your-api-results)
-- [Customize Exception Handler For API](#customize-exception-handler-for-api)
-- [Force JSON Response For API Requests](#force-json-response-for-api-requests)
-- [API Versioning](#api-versioning)
+## API 资源：是否包含 "data"？
 
-### API Resources: With or Without "data"?
-
-If you use Eloquent API Resources to return data, they will be automatically wrapped in 'data'. If you want to remove it, add `JsonResource::withoutWrapping();` in `app/Providers/AppServiceProvider.php`.
+如果你使用 Eloquent API 资源返回数据，它们将自动包装在 "data" 中。如果你想要移除它，请在 `app/Providers/AppServiceProvider.php` 中添加 `JsonResource::withoutWrapping()`;。
 
 ```php
 class AppServiceProvider extends ServiceProvider
@@ -26,11 +16,12 @@ class AppServiceProvider extends ServiceProvider
 }
 ```
 
-Tip given by [@phillipmwaniki](https://twitter.com/phillipmwaniki/status/1445230637544321029)
+Tip 来自 [@phillipmwaniki](https://twitter.com/phillipmwaniki/status/1445230637544321029)
 
-### Conditional Relationship Counts on API Resources
+## 在 API 资源中条件性地计算关联关系的数量
 
-You may conditionally include the count of a relationship in your resource response by using the whenCounted method. By doing so, the attribute is not included if the relationships' count is missing.
+你可以通过使用 whenCounted 方法，在资源响应中条件性地包含关联关系的计数。这样做可以避免在关系计数缺失时包含该属性。
+
 ```php
 public function toArray($request)
 {
@@ -45,12 +36,11 @@ public function toArray($request)
 }
 ```
 
-Tip given by [@mvpopuk](https://twitter.com/mvpopuk/status/1570480977507504128)
+Tip 来自 [@mvpopuk](https://twitter.com/mvpopuk/status/1570480977507504128)
 
-### API Return "Everything went ok"
+## API 返回 "Everything went ok"
 
-If you have API endpoint which performs some operations but has no response, so you wanna return just "everything went ok", you may return 204 status code "No
-content". In Laravel, it's easy: `return response()->noContent();`.
+如果你有一个执行某些操作但没有响应的 API 端点，因此你只想返回 "everything went ok"，你可以返回 204 状态码 "无内容"。在  Laravel 中，很容易实现：`return response()->noContent()`;。
 
 ```php
 public function reorder(Request $request)
@@ -63,13 +53,13 @@ public function reorder(Request $request)
 }
 ```
 
-### Avoid N+1 queries in API resources
+## 避免 API 资源中的 N+1 查询
 
-You can avoid N+1 queries in API resources by using the `whenLoaded()` method.
+你可以使用 `whenLoaded()` 方法来避免 API 资源中的 N+1 查询。
 
-This will only append the department if it’s already loaded in the Employee model.
+如果 Employee 模型中已加载了 department，则只会附加 department。
 
-Without `whenLoaded()` there is always a query for the department
+如果没有使用 `whenLoaded()` ，则总是会查询 department。
 
 ```php
 class EmployeeResource extends JsonResource
@@ -87,11 +77,11 @@ class EmployeeResource extends JsonResource
 }
 ```
 
-Tip given by [@mmartin_joo](https://twitter.com/mmartin_joo/status/1473987501501071362)
+Tip 来自 [@mmartin_joo](https://twitter.com/mmartin_joo/status/1473987501501071362)
 
-### Get Bearer Token from Authorization header
+## 从授权头部获取 Bearer 令牌
 
-The `bearerToken()` function is very handy when you are working with apis & want to access the token from Authorization header.
+当你使用 API 并希望从授权头部访问令牌时，`bearerToken()` 函数非常方便。
 
 ```php
 // Don't parse API headers manually like this:
@@ -102,11 +92,11 @@ $token = substr($tokenWithBearer, 7);
 $token = $request->bearerToken();
 ```
 
-Tip given by [@iamharis010](https://twitter.com/iamharis010/status/1488413755826327553)
+Tip 来自 [@iamharis010](https://twitter.com/iamharis010/status/1488413755826327553)
 
-### Sorting Your API Results
+## 排序 API 结果
 
-Single-column API sorting, with direction control
+单列 API 排序，带有方向控制
 
 ```php
 // Handles /dogs?sort=name and /dogs?sort=-name
@@ -124,7 +114,7 @@ Route::get('dogs', function (Request $request) {
 });
 ```
 
-we do the same for multiple columns (e.g., ?sort=name,-weight)
+对于多列排序（例如，?sort=name,-weight），我们做相同的处理：
 
 ```php
 // Handles ?sort=name,-weight
@@ -149,11 +139,11 @@ Route::get('dogs', function (Request $request) {
 ```
 ---
 
-### Customize Exception Handler For API
+## 自定义 API 异常处理
 
-#### Laravel 8 and below:
+### Laravel 8 及以下版本：
 
-There's a method `render()` in `App\Exceptions` class:
+在 `App\Exceptions` 类的方法 `render()`:
 
 ```php
    public function render($request, Exception $exception)
@@ -180,9 +170,9 @@ There's a method `render()` in `App\Exceptions` class:
     }
 ```
 
-#### Laravel 9 and above:
+### Laravel 9 版本及以上:
 
-There's a method `register()` in `App\Exceptions` class:
+`App\Exceptions` 类中有一个名为 `register()` 的方法。
 
 ```php
     public function register()
@@ -211,21 +201,21 @@ There's a method `register()` in `App\Exceptions` class:
     }
 ```
 
-Tip given by [Feras Elsharif](https://github.com/ferasbbm)
+Tip 来自 [Feras Elsharif](https://github.com/ferasbbm)
 
 ---
 
-### Force JSON Response For API Requests
+## 强制 API 请求返回 JSON 响应
 
-If you have built an API and it encounters an error when the request does not contain "Accept: application/JSON " HTTP Header then the error will be returned as HTML or redirect response on API routes, so for avoid it we can force all API responses to JSON.
+如果你构建了一个 API，并且在请求中没有包含 "Accept: application/JSON" 的 HTTP 头时遇到错误，那么错误将作为 HTML 或重定向响应返回到 API 路由上。为了避免这种情况，我们可以强制所有 API 响应返回 JSON。
 
-The first step is creating middleware by running this command:
+第一步是通过运行以下命令创建中间件：
 
 ```console
 php artisan make:middleware ForceJsonResponse
 ```
 
-Write this code on the handle function in `App/Http/Middleware/ForceJsonResponse.php` file:
+在 `App/Http/Middleware/ForceJsonResponse.php` 文件的 handle 方法中编写以下代码：
 
 ```php
 public function handle($request, Closure $next)
@@ -235,7 +225,7 @@ public function handle($request, Closure $next)
 }
 ```
 
-Second, register the created middleware in app/Http/Kernel.php file:
+第二步是在 app/Http/Kernel.php 文件中注册创建的中间件：
 
 ```php
 protected $middlewareGroups = [        
@@ -245,22 +235,22 @@ protected $middlewareGroups = [
 ];
 ```
 
-Tip given by [Feras Elsharif](https://github.com/ferasbbm)
+Tip 来自 [Feras Elsharif](https://github.com/ferasbbm)
 
 ---
 
-### API Versioning
+## API 版本控制
 
-#### When to version?
+### 何时进行版本控制？
 
-If you are working on a project that may have multi-release in the future or your endpoints have a breaking change like a change in the format of the response data, and you want to ensure that the API version remains functional when changes are made to the code.
+如果你正在开发一个可能在未来有多个发布版本的项目，或者你的 API 端点存在破坏性更改（例如响应数据格式的更改），并且你希望在代码发生更改时确保 API 版本保持可用。
 
-#### Change The Default Route Files 
-The first step is to change the route map in the `App\Providers\RouteServiceProvider` file, so let's get started:
+### 更改默认的路由文件
+第一步是在 `App\Providers\RouteServiceProvider` 文件中更改路由映射，让我们开始：
 
-#### Laravel 8 and above:
+### Laravel 8 及以上版本：
 
-Add a 'ApiNamespace' property 
+添加一个 'ApiNamespace' 属性 
 
 ```php
 /**
@@ -270,7 +260,7 @@ Add a 'ApiNamespace' property
 protected string $ApiNamespace = 'App\Http\Controllers\Api';
 ```
 
-Inside the method boot, add the following code:
+在 boot 方法中添加以下代码：
 
 ```php
 $this->routes(function () {
@@ -289,9 +279,9 @@ $this->routes(function () {
 ```
 
 
-#### Laravel 7 and below:
+### Laravel 7 及以下版本：
 
-Add a 'ApiNamespace' property
+添加一个 'ApiNamespace' 熟悉
 
 ```php
 /**
@@ -301,7 +291,7 @@ Add a 'ApiNamespace' property
 protected string $ApiNamespace = 'App\Http\Controllers\Api';
 ```
 
-Inside the method map, add the following code:
+在 map 方法中添加以下代码:
 
 ```php
 // remove this $this->mapApiRoutes(); 
@@ -309,7 +299,7 @@ Inside the method map, add the following code:
     $this->mapApiV2Routes();
 ```
 
-And add these methods:
+并添加以下方法：
 
 ```php
   protected function mapApiV1Routes()
@@ -329,7 +319,7 @@ And add these methods:
     }
 ```
 
-#### Controller Folder Versioning
+### 控制器文件夹版本控制
 
 ```
 Controllers
@@ -340,7 +330,7 @@ Controllers
         └──AuthController.php
 ```
 
-#### Route File Versioning
+### 路由文件版本控制
 
 ```
 routes
@@ -350,4 +340,4 @@ routes
    └── web.php
 ```
 
-Tip given by [Feras Elsharif](https://github.com/ferasbbm)
+Tip 来自 [Feras Elsharif](https://github.com/ferasbbm)

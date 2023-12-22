@@ -34,7 +34,7 @@ Tip 来自 [@LukeDowning19](https://twitter.com/LukeDowning19)
 
 ## 用户注册后的更多事件
 
-Want to perform some actions after new user registration? Head to `app/Providers/EventServiceProvider.php` and add more Listeners classes, and then in those classes implement `handle()` method with `$event->user` object
+想在新用户注册后执行一些操作？请转到 `app/Providers/EventServiceProvider.php` 文件，并添加更多的监听器类，然后在这些类中实现 `handle()` 方法，并使用 `$event->user` 对象。
 
 ```php
 class EventServiceProvider extends ServiceProvider
@@ -49,10 +49,10 @@ class EventServiceProvider extends ServiceProvider
     ];
 ```
 
-## Did you know about Auth::once()?
+## 你知道 Auth::once() 吗?
 
-You can login with user only for ONE REQUEST, using method `Auth::once()`.
-No sessions or cookies will be utilized, which means this method may be helpful when building a stateless API.
+你可以使用 `Auth::once()` 方法仅在一次请求中登录用户。
+不会使用会话或 cookie，这意味着在构建无状态 API 时，该方法可能会很有帮助。
 
 ```php
 if (Auth::once($credentials)) {
@@ -60,11 +60,11 @@ if (Auth::once($credentials)) {
 }
 ```
 
-## Change API Token on users password update
+## 在用户密码更新时更改 API 令牌
 
-It's convenient to change the user's API Token when its password changes.
+当用户的密码更改时，更改用户的 API 令牌非常方便。
 
-Model:
+模型:
 
 ```php
 protected function password(): Attribute
@@ -78,9 +78,9 @@ protected function password(): Attribute
 }
 ```
 
-## Override Permissions for Super Admin
+## 超级管理员覆盖权限
 
-If you've defined your Gates but want to override all permissions for SUPER ADMIN user, to give that superadmin ALL permissions, you can intercept gates with `Gate::before()` statement, in `AuthServiceProvider.php` file.
+如果你已经定义了门卫（Gates），但希望超级管理员用户覆盖所有权限，以给予超级管理员所有权限，你可以在 `AuthServiceProvider.php` 文件中使用 `Gate::before()` 语句拦截门卫。
 
 ```php
 // Intercept any Gate and check if it's super admin
@@ -98,7 +98,7 @@ Gate::before(function($user, $ability) {
 });
 ```
 
-If you want to do something in your Gate when there is no user at all, you need to add a type hint for `$user` allowing it to be `null`. For example, if you have a role called Anonymous for your non-logged-in users:
+如果你希望在没有用户的情况下在门卫中执行某些操作，你需要为 `$user` 添加一个允许为 `null` 的类型提示。例如，如果你为未登录用户定义了一个名为 "Anonymous" 的角色：
 
 ```php
 Gate::before(function (?User $user, $ability) {

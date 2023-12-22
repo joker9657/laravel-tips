@@ -1,24 +1,17 @@
-## Mail
+# 发送邮件
 
-⬆️ [Go to main menu](README.md#laravel-tips) ⬅️ [Previous (Auth)](auth.md) ➡️ [Next (Artisan)](artisan.md)
+⬆️ [回到主页](README.md#laravel-tips) ⬅️ [上一条 (用户授权)](auth.md) ➡️ [下一条 (Artisan)](artisan.md)
 
-- [Testing email into laravel.log](#testing-email-into-laravellog)
-- [You don’t have to store files to use them as email attachments in Laravel](#you-dont-have-to-store-files-to-use-them-as-email-attachments-in-laravel)
-- [Preview Mailables](#preview-mailables)
-- [Preview Mail without Mailables](#preview-mail-without-mailables)
-- [Default Email Subject in Laravel Notifications](#default-email-subject-in-laravel-notifications)
-- [Send Notifications to Anyone](#send-notifications-to-anyone)
-- [Set conditional object properties](#set-conditional-object-properties)
+## 在 laravel.log 中测试邮件内容
 
-### Testing email into laravel.log
+如果你想测试应用程序中的电子邮件内容，但不想设置类似 Mailgun 的东西，可以使用 `.env` 参数 `MAIL_DRIVER=log`，所有的电子邮件将保存在 `storage/logs/laravel.log` 文件中，而不是实际发送。
 
-If you want to test email contents in your app but unable or unwilling to set up something like Mailgun, use `.env` parameter `MAIL_DRIVER=log` and all the email will be saved into `storage/logs/laravel.log` file, instead of actually being sent.
+## 你无需将文件存储即可将其用作 Laravel 中的电子邮件附件
 
-### You don’t have to store files to use them as email attachments in Laravel
+只需使用 **attachData** 将用户上传的文件添加到可邮寄对象中。
 
-Simply use **attachData** to add user uploaded files in Mailables.
+以下是使用它的 Mailable 类的代码片段。
 
-Here's a snippet from a Mailable class using it.
 ```php
 public function build()
 {
@@ -32,11 +25,11 @@ public function build()
 }
 ```
 
-Tip given by [@ecrmnn](https://twitter.com/ecrmnn/status/1570449885664808961)
+Tip 来自 [@ecrmnn](https://twitter.com/ecrmnn/status/1570449885664808961)
 
-### Preview Mailables
+## 预览 Mailables
 
-If you use Mailables to send email, you can preview the result without sending, directly in your browser. Just return a Mailable as route result:
+如果你使用 Mailables 发送电子邮件，你可以在不发送的情况下直接在浏览器中预览结果。只需将 Mailable 作为路由结果返回即可：
 
 ```php
 Route::get('/mailable', function () {
@@ -45,9 +38,9 @@ Route::get('/mailable', function () {
 });
 ```
 
-### Preview Mail without Mailables
+## 在没有 Mailables 的情况下预览邮件
 
-You can also preview your email without Mailables. For instance, when you are creating notification, you can specify the markdown that may be use for your mail notification.
+你也可以在没有 Mailables 的情况下预览你的电子邮件。例如，当你创建通知时，可以指定用于邮件通知的 Markdown。
 
 ```php
 use Illuminate\Notifications\Messages\MailMessage;
@@ -58,15 +51,15 @@ Route::get('/mailable', function () {
 });
 ```
 
-You may also use other methods provided by `MailMessage` object such as `view` and others.
+你还可以使用 `MailMessage` 对象提供的其他方法，如 `view` 等。
 
-Tip given by [@raditzfarhan](https://github.com/raditzfarhan)
+Tip 来自 [@raditzfarhan](https://github.com/raditzfarhan)
 
-### Default Email Subject in Laravel Notifications
+## Laravel 通知中的默认电子邮件主题
 
-If you send Laravel Notification and don't specify subject in **toMail()**, default subject is your notification class name, CamelCased into Spaces.
+如果你发送 Laravel 通知并且在 **toMail()** 中未指定主题，则默认主题为你的通知类名称，以驼峰式转换为带有空格的字符串。
 
-So, if you have:
+因此，如果你有以下代码：
 
 ```php
 class UserRegistrationEmail extends Notification {
@@ -74,11 +67,11 @@ class UserRegistrationEmail extends Notification {
 }
 ```
 
-Then you will receive an email with subject **User Registration Email**.
+那么你将收到一个主题为 **User Registration Email** 的电子邮件。
 
-### Send Notifications to Anyone
+## 将通知发送给任何人
 
-You can send Laravel Notifications not only to a certain user with `$user->notify()`, but also to anyone you want, via `Notification::route()`, with so-called "on-demand" notifications:
+你可以将 Laravel 通知发送给不仅是特定用户 `$user->notify()`，还可以通过 `Notification::route()` 发送给任何你想要的人，使用所谓的"按需"通知：
 
 ```php
 Notification::route('mail', 'taylor@example.com')
@@ -87,9 +80,9 @@ Notification::route('mail', 'taylor@example.com')
         ->notify(new InvoicePaid($invoice));
 ```
 
-### Set conditional object properties
+## 设置条件对象属性
 
-You can use the `when()` or `unless()` methods in your MailMessage notifications to set conditional object properties like a call to action.
+你可以在 MailMessage 通知中使用 `when()` 或 `unless()` 方法来设置条件对象属性，例如调用某个操作。
 
 ```php
 class InvoicePaid extends Notification
@@ -107,7 +100,7 @@ class InvoicePaid extends Notification
 }
 ```
 
-Use the `when` or `unless` methods in you own classes by using the `Illuminate\Support\Traits\Conditionable` trait
+通过使用 `Illuminate\Support\Traits\Conditionable` trait，在你自己的类中使用 `when` 或 `unless` 方法。
 
-Tip given by [@Philo01](https://twitter.com/Philo01/status/1503302749525528582)
+Tip 来自 [@Philo01](https://twitter.com/Philo01/status/1503302749525528582)
 

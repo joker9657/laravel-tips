@@ -1,83 +1,10 @@
-## Other
+# Other
 
-⬆️ [Go to main menu](README.md#laravel-tips) ⬅️ [Previous (API)](api.md)
+⬆️ [回到主页](README.md#laravel-tips) ⬅️ [上一条 (API)](api.md)
 
-- [Localhost in .env](#localhost-in-env)
-- [Time value in the past/future](#time-value-in-the-pastfuture)
-- [Do some work after a response has been sent to the browser](#do-some-work-after-a-response-has-been-sent-to-the-browser)
-- [Redirect with URL fragment](#redirect-with-url-fragment)
-- [Use middleware to adjust incoming request](#use-middleware-to-adjust-incoming-request)
-- [Redirect away from Laravel app](#redirect-away-from-laravel-app)
-- [Blade directive to show data in specific environment](#blade-directive-to-show-data-in-specific-environment)
-- [Schedule Laravel job based on time zone](#schedule-laravel-job-based-on-time-zone)
-- [Use assertModelMissing instead assertDatabaseMissing](#use-assertmodelmissing-instead-assertdatabasemissing)
-- [Various options to format diffForHumans()](#various-options-to-format-diffforhumans)
-- [Create custom disks at runtime](#create-custom-disks-at-runtime)
-- [When (NOT) to run "composer update"](#when-not-to-run-composer-update)
-- [Composer: Check for Newer Versions](#composer-check-for-newer-versions)
-- [Auto-Capitalize Translations](#auto-capitalize-translations)
-- [Carbon with Only Hours](#carbon-with-only-hours)
-- [Single Action Controllers](#single-action-controllers)
-- [Redirect to Specific Controller Method](#redirect-to-specific-controller-method)
-- [Use Older Laravel Version](#use-older-laravel-version)
-- [Add Parameters to Pagination Links](#add-parameters-to-pagination-links)
-- [Repeatable Callback Functions](#repeatable-callback-functions)
-- [Request: has any](#request-has-any)
-- [Simple Pagination](#simple-pagination)
-- [Blade directive to add true/false conditions](#blade-directive-to-add-truefalse-conditions)
-- [Jobs can be used without queues](#jobs-can-be-used-without-queues)
-- [Use faker outside factories or seeders](#use-faker-outside-factories-or-seeders)
-- [Schedule things](#schedule-things)
-- [Search Laravel docs](#search-laravel-docs)
-- [Filter route:list](#filter-routelist)
-- [Blade directive for not repeating yourself](#blade-directive-for-not-repeating-yourself)
-- [Artisan commands help](#artisan-commands-help)
-- [Disable lazy loading when running your tests](#disable-lazy-loading-when-running-your-tests)
-- [Using two amazing helpers in Laravel will bring magic results](#using-two-amazing-helpers-in-laravel-will-bring-magic-results)
-- [Request parameter default value](#request-parameter-default-value)
-- [Pass middleware directly into the route without register it](#pass-middleware-directly-into-the-route-without-register-it)
-- [Transforming an array to CssClasses](#transforming-an-array-to-cssclasses)
-- ["upcomingInvoice" method in Laravel Cashier (Stripe)](#upcominginvoice-method-in-laravel-cashier-stripe)
-- [Laravel Request exists() vs has()](#laravel-request-exists-vs-has)
-- [There are multiple ways to return a view with variables](#there-are-multiple-ways-to-return-a-view-with-variables)
-- [Schedule regular shell commands](#schedule-regular-shell-commands)
-- [HTTP client request without verifying](#http-client-request-without-verifying)
-- [Test that doesn't assert anything](#test-that-doesnt-assert-anything)
-- ["Str::mask()" method](#strmask-method)
-- [Extending Laravel classes](#extending-laravel-classes)
-- [Can feature](#can-feature)
-- [Temporary download URLs](#temporary-download-urls)
-- [Dealing with deeply-nested arrays](#dealing-with-deeply-nested-arrays)
-- [Customize how your exceptions are rendered](#customize-how-your-exceptions-are-rendered)
-- [The tap helper](#the-tap-helper)
-- [Reset all of the remaining time units](#reset-all-of-the-remaining-time-units)
-- [Scheduled commands in the console kernel can automatically email their output if something goes wrong](#scheduled-commands-in-the-console-kernel-can-automatically-email-their-output-if-something-goes-wrong)
-- [Be careful when constructing your custom filtered queries using GET parameters](#be-careful-when-constructing-your-custom-filtered-queries-using-get-parameters)
-- [Dust out your bloated route file](#dust-out-your-bloated-route-file)
-- [You can send e-mails to a custom log file](#you-can-send-e-mails-to-a-custom-log-file)
-- [Markdown made easy](#markdown-made-easy)
-- [Simplify if on a request with whenFilled() helper](#simplify-if-on-a-request-with-whenfilled-helper)
-- [Pass arguments to middleware](#pass-arguments-to-middleware)
-- [Get value from session and forget](#get-value-from-session-and-forget)
-- [$request->date() method](#request-date-method)
-- [Use through instead of map when using pagination](#use-through-instead-of-map-when-using-pagination)
-- [Quickly add a bearer token to HTTP request](#quickly-add-a-bearer-token-to-http-request)
-- [Copy file or all files from a folder](#copy-file-or-all-files-from-a-folder)
-- [Sessions has() vs exists() vs missing()](#sessions-has-vs-exists-vs-missing)
-- [Test that you are passing the correct data to a view](#test-that-you-are-passing-the-correct-data-to-a-view)
-- [Use Redis to track page views](#use-redis-to-track-page-views)
-- [to_route() helper function](#to_route-helper-function)
-- [Pause a long running job when queue worker shuts down](#pause-a-long-running-job-when-queue-worker-shuts-down)
-- [Freezing Time in Laravel Tests](#freezing-time-in-laravel-tests)
-- [New squish helper](#new-squish-helper)
-- [Specify what to do if a scheduled task fails or succeeds](#specify-what-to-do-if-a-scheduled-task-fails-or-succeeds)
-- [Scheduled command on specific environments](#scheduled-command-on-specific-environments)
-- [Add conditionable behavior to your own classes](#add-conditionable-behavior-to-your-own-classes)
-- [Perform Action when Job has failed](#perform-action-when-job-has-failed)
+## Localhost in .env
 
-### Localhost in .env
-
-Don't forget to change `APP_URL` in your `.env` file from `http://localhost` to the real URL, cause it will be the basis for any links in your email notifications and elsewhere.
+在你的 `.env` 文件中，不要忘记将 `APP_URL` 从 `http://localhost` 更改为实际的 URL，因为它将成为电子邮件通知和其他地方链接的基础。
 
 ```
 APP_NAME=Laravel
@@ -87,9 +14,9 @@ APP_DEBUG=true
 APP_URL=http://localhost
 ```
 
-### Time value in the past/future
+## 过去 / 未来的时间值
 
-If you want to have some time value in the past/future, you can build it by chaining various Laravel/Carbon helpers, like `now()->[add or subtract something]->setTime()`
+如果你想要一个过去/未来的时间值，你可以使用各种 Laravel/Carbon 助手进行链式操作，比如 `now()->[添加或减去某些时间]->setTime()`
 
 ```php
 $product = Product::factory()->create([
@@ -97,13 +24,13 @@ $product = Product::factory()->create([
 ]);
 ```
 
-### Do some work after a response has been sent to the browser
+## 在响应发送到浏览器后执行一些操作
 
-You can also use middleware to do some work after a response has been sent to the browser. Such middleware is called Terminable Middleware.
+你还可以使用中间件在响应发送到浏览器后执行一些操作。这种中间件被称为 Terminable Middleware。
 
-You can make a middleware terminable by defining a `terminate` method on a middleware.
+你可以通过在中间件上定义一个 `terminate` 方法来使中间件可终止。
 
-This method will be automatically called after a response is sent to the browser. It will have both request and response as params.
+这个方法在响应发送到浏览器后会自动调用。它将同时拥有请求和响应作为参数。
 
 ```php
 class TerminatingMiddleware
@@ -120,13 +47,14 @@ class TerminatingMiddleware
 }
 ```
 
-Tip given by [@Laratips1](https://twitter.com/Laratips1/status/1567045288338280448/)
+Tip 来自 [@Laratips1](https://twitter.com/Laratips1/status/1567045288338280448/)
 
-### Redirect with URL fragment
+## 重定向并带有 URL 片段
 
-Did you know you can add a URI fragment when redirecting to a route in Laravel?
+你知道在 Laravel 中重定向到路由时可以添加一个 URI 片段吗？
 
-Super useful when redirecting to a specific section of the page. E.g. reviews section on a product page.
+当重定向到页面的特定部分时非常有用。例如，产品页面上的评论部分。
+
 ```php
 return redirect()
      ->back()
@@ -139,11 +67,12 @@ return redirect()
      // domain.test/product/23#reviews
 ```
 
-Tip given by [@ecrmnn](https://twitter.com/ecrmnn/status/1574813643425751040)
+Tip 来自 [@ecrmnn](https://twitter.com/ecrmnn/status/1574813643425751040)
 
-### Use middleware to adjust incoming request
+## 使用中间件调整传入的请求
 
-Laravel's middlewares are a great way to transform incoming requests. For example, I decided to rename a model in my application; instead of bumping the API version for a breaking change, I simply convert those requests using the old reference.
+Laravel 的中间件是转换传入请求的好方法。例如，我决定在我的应用程序中重命名一个模型；而不是为了一个破坏性的更改而增加 API 版本，我只需使用旧的引用转换这些请求。
+
 ```php
 class ConvertLicenseeIntoContact
 {
@@ -158,25 +87,26 @@ class ConvertLicenseeIntoContact
 }
 ```
 
-Tip given by [@Philo01](https://twitter.com/Philo01/status/1581214787467235329)
+Tip 来自 [@Philo01](https://twitter.com/Philo01/status/1581214787467235329)
 
-### Redirect away from Laravel app
+## 从 Laravel 应用中重定向到其他网站
 
-Sometimes, you might need to redirect away from your Laravel application to other websites. In that case, there is a handy away method you can call on the redirect() method...
+有时，你可能需要从你的 Laravel 应用程序重定向到其他网站。在这种情况下，你可以在 redirect() 方法上调用一个方便的 away 方法...
 
 ```php
 redirect()->away('https://www.google.com');
 ```
 
-It creates a `RedirectResponse` without any additional URL encoding, validation, or verification.
+它创建一个 `RedirectResponse`，没有额外的 URL 编码、表单验证或其他验证。
 
-Tip given by [@Laratips1](https://twitter.com/Laratips1/status/1581887837972361216)
+Tip 来自 [@Laratips1](https://twitter.com/Laratips1/status/1581887837972361216)
 
-### Blade directive to show data in specific environment
+## Blade 指令在特定环境中显示数据
 
-Did you know Laravel has a 'production' blade directive that you can use to show data only when you are in a production environment?
+你知道 Laravel 有一个 'production' Blade 指令，你可以使用它来只在生产环境中显示数据吗？
 
-There is also another 'env' directive that you can use to show data in the environment you specify.
+还有另一个 'env' 指令，你可以使用它来在指定的环境中显示数据。
+
 ```blade
 @production
      // I am only visible to the production environment...
@@ -191,20 +121,22 @@ There is also another 'env' directive that you can use to show data in the envir
 @endenv
 ```
 
-Tip given by [@Laratips1](https://twitter.com/Laratips1/status/1582615079874220032)
+Tip 来自 [@Laratips1](https://twitter.com/Laratips1/status/1582615079874220032)
 
-### Schedule Laravel job based on time zone
+## 基于时区调度 Laravel 任务
 
-Do you know you can schedule laravel job based on time zone
+你知道你可以基于时区调度 Laravel 任务吗？
 
-Setting Timezone for One Command:
+设置单个命令的时区：
+
 ```php
 $schedule->command('reportg:generate')
          ->timezone('America/New_York')
          ->at('2:00');
 ```
 
-If you are repeatedly assigning the same timezone to all of your schedule tasks, you may wish to define a `scheduleTimezone` method in you `app\Console\Kernel` class:
+如果你要为所有的调度任务重复分配相同的时区，你可以在 `app\Console\Kernel` 类中定义一个 `scheduleTimezone` 方法：
+
 ```php
 protected function scheduleTimezone()
 {
@@ -212,11 +144,12 @@ protected function scheduleTimezone()
 }
 ```
 
-Tip given by [@binumathew](https://twitter.com/binumathew/status/1584830693791928320)
+Tip 来自 [@binumathew](https://twitter.com/binumathew/status/1584830693791928320)
 
-### Use assertModelMissing instead assertDatabaseMissing
+## 使用 assertModelMissing 而不是 assertDatabaseMissing
 
-While testing model deletion, use assertModelMissing instead assertDatabaseMissing.
+在测试模型删除时，使用 assertModelMissing 而不是 assertDatabaseMissing
+
 ```php
 /** @test */
 public function allowed_user_can_delete_task()
@@ -234,11 +167,12 @@ public function allowed_user_can_delete_task()
 }
 ```
 
-Tip given by [@h_ik04](https://twitter.com/h_ik04/status/1585593621193129986)
+Tip 来自 [@h_ik04](https://twitter.com/h_ik04/status/1585593621193129986)
 
-### Various options to format diffForHumans()
+## 格式化 diffForHumans() 的各种选项
 
-In Carbon, did you know you can add various options to format diffForHumans()? [Read the docs for more examples.](https://carbon.nesbot.com/docs/#api-humandiff)
+在 Carbon 中，你知道你可以为 diffForHumans() 添加各种选项吗？[阅读文档获取更多示例。](https://carbon.nesbot.com/docs/#api-humandiff)
+
 ```php
 $user->created_at->diffForHumans();
 ```
@@ -271,11 +205,11 @@ $user->created_at->diffForHumans([
 ```
 => `"17h, 54m, 50s ago"`
 
-### Create custom disks at runtime
+## 在运行时创建自定义磁盘
 
-Did you know that you can create custom disks at runtime without the need to have the config in your config/filesystems file?
+你知道你可以在运行时创建自定义磁盘，而无需在 config/filesystems 文件中进行配置吗？
 
-This can be handy to manage files in custom paths without the need of adding them to the config.
+这在管理自定义路径中的文件时非常方便，而无需将它们添加到配置中。
 
 ```php
 $avatarDisk = Storage::build([
@@ -285,15 +219,15 @@ $avatarDisk = Storage::build([
 $avatarDisk->put('user_avatar.jpg', $image);
 ```
 
-Tip given by [@wendell_adriel](https://twitter.com/wendell_adriel/)
+Tip 来自 [@wendell_adriel](https://twitter.com/wendell_adriel/)
 
-### When (NOT) to run "composer update"
+## 何时（不）运行 run "composer update"
 
-Not so much about Laravel, but... Never run `composer update` on production live server, it's slow and will "break" repository. Always run `composer update` locally on your computer, commit new `composer.lock` to the repository, and run `composer install` on the live server.
+不要在生产服务器上运行 `composer update`，这样会很慢并且可能会破坏代码库。请在本地计算机上运行 `composer update`，将新的 `composer.lock` 提交到代码库，然后在生产服务器上运行 `composer install`。
 
-### Composer: Check for Newer Versions
+## Composer: 检查更新版本
 
-If you want to find out which of your `composer.json` packages have released newer versions, just run `composer outdated`. You will get a full list with all information, like this below.
+如果你想查找哪些 `composer.json` 中的包有新版本发布，只需运行 `composer outdated` 命令。你将得到一个完整的列表，包含以下信息：
 
 ```
 phpdocumentor/type-resolver 0.4.0 0.7.1
@@ -303,9 +237,9 @@ ralouphie/getallheaders     2.0.5 3.0.3 A polyfill for getallheaders.
 sebastian/global-state      2.0.0 3.0.0 Snapshotting of global state
 ```
 
-### Auto-Capitalize Translations
+## 自动大写翻译
 
-In translation files (`resources/lang`), you can specify variables not only as `:variable`, but also capitalized as `:VARIABLE` or `:Variable` - and then whatever value you pass - will be also capitalized automatically.
+在翻译文件（`resources/lang`）中，你不仅可以将变量指定为 `:variable`，还可以大写为 `:VARIABLE` 或 `:Variable`，然后无论你传递什么值，它都会自动转换为大写。
 
 ```php
 // resources/lang/en/messages.php
@@ -315,9 +249,9 @@ In translation files (`resources/lang`), you can specify variables not only as `
 echo __('messages.welcome', ['name' => 'taylor']);
 ```
 
-### Carbon with Only Hours
+## Carbon 只包含小时
 
-If you want to have a current date without seconds and/or minutes, use Carbon's methods like `setSeconds(0)` or `setMinutes(0)`.
+如果你想获取当前日期，但不包含秒和/或分钟，可以使用 Carbon 的方法，如 `setSeconds(0)` 或 `setMinutes(0)`。
 
 ```php
 // 2020-04-20 08:12:34
@@ -333,11 +267,11 @@ echo now()->setSeconds(0)->setMinutes(0);
 echo now()->startOfHour();
 ```
 
-### Single Action Controllers
+## 单一动作控制器
 
-If you want to create a controller with just one action, you can use `__invoke()` method and even create "invokable" controller.
+如果你想创建一个只有一个动作的控制器，可以使用 `__invoke()` 方法，甚至创建一个 "可调用" 的控制器。
 
-Route:
+路由:
 
 ```php
 Route::get('user/{id}', ShowProfile::class);
@@ -349,7 +283,7 @@ Artisan:
 php artisan make:controller ShowProfile --invokable
 ```
 
-Controller:
+控制器:
 
 ```php
 class ShowProfile extends Controller
@@ -363,27 +297,27 @@ class ShowProfile extends Controller
 }
 ```
 
-### Redirect to Specific Controller Method
+## 重定向到特定控制器方法
 
-You can `redirect()` not only to URL or specific route, but to a specific Controller's specific method, and even pass the parameters. Use this:
+你不仅可以使用 `redirect()` 重定向到 URL 或特定路由，还可以重定向到特定控制器的特定方法，甚至传递参数。使用以下代码：
 
 ```php
 return redirect()->action([SomeController::class, 'method'], ['param' => $value]);
 ```
 
-### Use Older Laravel Version
+## 使用较旧的 Laravel 版本
 
-If you want to use OLDER version instead of the newest Laravel, use this command:
+如果你希望使用较旧的 Laravel 版本而不是最新版，可以使用以下命令：
 
 ```bash
 composer create-project --prefer-dist laravel/laravel project "7.*"
 ```
 
-Change 7.\* to whichever version you want.
+将 7.* 更改为你想要使用的版本。
 
-### Add Parameters to Pagination Links
+## 添加参数到分页链接
 
-In default Pagination links, you can pass additional parameters, preserve the original query string, or even point to a specific `#xxxxx` anchor.
+在默认的分页链接中，你可以传递额外的参数，保留原始的查询字符串，甚至指向特定的 `#xxxxx` 锚点。
 
 ```blade
 {{ $users->appends(['sort' => 'votes'])->links() }}
@@ -393,9 +327,9 @@ In default Pagination links, you can pass additional parameters, preserve the or
 {{ $users->fragment('foo')->links() }}
 ```
 
-### Repeatable Callback Functions
+## 可重复使用的回调函数
 
-If you have a callback function that you need to re-use multiple times, you can assign it to a variable, and then re-use.
+如果你有一个需要多次重复使用的回调函数，你可以将其赋值给一个变量，然后进行重复使用。
 
 ```php
 $userCondition = function ($query) {
@@ -409,9 +343,9 @@ $articles = Article::with(['comments' => $userCondition])
     ->get();
 ```
 
-### Request: has any
+## Request: 检查任意参数
 
-You can check not only one parameter with `$request->has()` method, but also check for multiple parameters present, with `$request->hasAny() `:
+你不仅可以使用 `$request->has()` 方法检查一个参数，还可以使用 `$request->hasAny()` 方法检查多个参数是否存在：
 
 ```php
 public function store(Request $request)
@@ -424,9 +358,9 @@ public function store(Request $request)
 }
 ```
 
-### Simple Pagination
+## 简单分页
 
-In pagination, if you want to have just "Previous/next" links instead of all the page numbers (and have fewer DB queries because of that), just change `paginate()` to `simplePaginate()`:
+在分页中，如果你只想要 "上一页 / 下一页" 链接而不是所有的页码（这样可以减少数据库查询），只需将 `paginate()` 改为 `simplePaginate()` ：
 
 ```php
 // Instead of
@@ -436,17 +370,17 @@ $users = User::paginate(10);
 $users = User::simplePaginate(10);
 ```
 
-### Blade directive to add true/false conditions
+## Blade 指令添加 true / false 条件
 
-New in Laravel 8.51: `@class` Blade directive to add true/false conditions on whether some CSS class should be added. Read more in [docs](https://laravel.com/docs/8.x/blade#conditional-classes)
+Laravel 8.51 中新增了 `@class` Blade 指令，用于根据某个 CSS 类是否应该添加来添加 true / false 条件。在 [文档](https://laravel.com/docs/8.x/blade#conditional-classes) 中了解更多信息。
 
-Before:
+之前的写法：
 
 ```php
 <div class="@if ($active) underline @endif">`
 ```
 
-Now:
+现在可以这样写:
 
 ```php
 <div @class(['underline' => $active])>
@@ -468,12 +402,12 @@ Now:
 <span class="p-4 text-gray-500 bg-red"></span>
 ```
 
-Tip given by [@Teacoders](https://twitter.com/Teacoders/status/1445417511546023938)
+Tip 来自 [@Teacoders](https://twitter.com/Teacoders/status/1445417511546023938)
 
-### Jobs can be used without queues
+## Jobs 可以不使用队列
 
-Jobs are discussed in the "Queues" section of the docs, but you can use Jobs without queues, just as classes to delegate tasks to.
-Just call `$this->dispatchNow()` from Controllers
+在文档的 "队列" 部分讨论了 Jobs，但你可以在不使用队列的情况下使用 Jobs，只需将其作为类来委派任务。
+只需从控制器中调用 `$this->dispatchNow()` 即可。
 
 ```php
 public function approve(Article $article)
@@ -484,11 +418,11 @@ public function approve(Article $article)
 }
 ```
 
-### Use faker outside factories or seeders
+## 在工厂或填充器之外使用 Faker
 
-If you want to generate some fake data, you can use Faker even outside factories or seeds, in any class.
+如果你想生成一些虚假数据，即使在工厂或填充器之外的任何类中，你也可以使用 Faker。
 
-_Keep in mind: to use it in **production**, you need to move faker from `"require-dev"` to `"require"` in `composer.json`_
+请注意：在生产环境中使用它，你需要将 faker 从 `"require-dev"` 移动到 `"require"` 中的 `composer.json` 中。
 
 ```php
 use Faker;
@@ -503,7 +437,7 @@ class WhateverController extends Controller
 }
 ```
 
-### Schedule things
+## Schedule things
 
 You can schedule things to run daily/hourly in a lot of different structures.
 
@@ -536,17 +470,17 @@ protected function schedule(Schedule $schedule)
 }
 ```
 
-### Search Laravel docs
+## Search Laravel docs
 
 If you want to search Laravel Docs for some keyword, by default it gives you only the TOP 5 results. Maybe there are more?
 
 If you want to see ALL results, you may go to the GitHub Laravel docs repository and search there directly. https://github.com/laravel/docs
 
-### Filter route:list
+## Filter route:list
 
 New in Laravel 8.34: `php artisan route:list` gets additional flag `--except-path`, so you would filter out the routes you don't want to see. [See original PR](https://github.com/laravel/framework/pull/36619)
 
-### Blade directive for not repeating yourself
+## Blade directive for not repeating yourself
 
 If you keep doing the same formatting of the data in multiple Blade files, you may create your own Blade directive.
 
@@ -574,11 +508,11 @@ public function boot()
 @endif
 ```
 
-### Artisan commands help
+## Artisan commands help
 
 If you are not sure about the parameters of some Artisan command, or you want to know what parameters are available, just type `php artisan help [a command you want]`.
 
-### Disable lazy loading when running your tests
+## Disable lazy loading when running your tests
 
 If you don't want to prevent lazy loading when running your tests you can disable it
 
@@ -586,9 +520,9 @@ If you don't want to prevent lazy loading when running your tests you can disabl
 Model::preventLazyLoading(!$this->app->isProduction() && !$this->app->runningUnitTests());
 ```
 
-Tip given by [@djgeisi](https://twitter.com/djgeisi/status/1435538167290073090)
+Tip 来自 [@djgeisi](https://twitter.com/djgeisi/status/1435538167290073090)
 
-### Using two amazing helpers in Laravel will bring magic results
+## Using two amazing helpers in Laravel will bring magic results
 
 Using two amazing helpers in Laravel will bring magic results...
 
@@ -602,9 +536,9 @@ rescue(function () {
 });
 ```
 
-Tip given by [@JuanDMeGon](https://twitter.com/JuanDMeGon/status/1435466660467683328)
+Tip 来自 [@JuanDMeGon](https://twitter.com/JuanDMeGon/status/1435466660467683328)
 
-### Request parameter default value
+## Request parameter default value
 
 Here we are checking if there is a per_page (or any other parameter) value then we will use it, otherwise, we will use a default one.
 
@@ -616,18 +550,18 @@ $perPage = request()->per_page ? request()->per_page : 20;
 $perPage = request('per_page', 20);
 ```
 
-Tip given by [@devThaer](https://twitter.com/devThaer/status/1437521022631165957)
+Tip 来自 [@devThaer](https://twitter.com/devThaer/status/1437521022631165957)
 
-### Pass middleware directly into the route without register it
+## Pass middleware directly into the route without register it
 
 ```php
 Route::get('posts', PostController::class)
     ->middleware(['auth', CustomMiddleware::class])
 ```
 
-Tip given by [@sky_0xs](https://twitter.com/sky_0xs/status/1438258486815690766)
+Tip 来自 [@sky_0xs](https://twitter.com/sky_0xs/status/1438258486815690766)
 
-### Transforming an array to CssClasses
+## Transforming an array to CssClasses
 
 ```php
 use Illuminate\Support\Arr;
@@ -644,9 +578,9 @@ $classes = Arr::toCssClasses($array);
  */
 ```
 
-Tip given by [@dietsedev](https://twitter.com/dietsedev/status/1438550428833271808)
+Tip 来自 [@dietsedev](https://twitter.com/dietsedev/status/1438550428833271808)
 
-### "upcomingInvoice" method in Laravel Cashier (Stripe)
+## "upcomingInvoice" method in Laravel Cashier (Stripe)
 
 You can show how much a customer will pay in the next billing cycle.
 
@@ -661,9 +595,9 @@ Route::get('/profile/invoices', function (Request $request) {
 });
 ```
 
-Tip given by [@oliverds\_](https://twitter.com/oliverds_/status/1439997820228890626)
+Tip 来自 [@oliverds\_](https://twitter.com/oliverds_/status/1439997820228890626)
 
-### Laravel Request exists() vs has()
+## Laravel Request exists() vs has()
 
 ```php
 // https://example.com?popular
@@ -675,9 +609,9 @@ $request->exists('popular') // true
 $request->has('popular') // true
 ```
 
-Tip given by [@coderahuljat](https://twitter.com/coderahuljat/status/1442191143244951552)
+Tip 来自 [@coderahuljat](https://twitter.com/coderahuljat/status/1442191143244951552)
 
-### There are multiple ways to return a view with variables
+## There are multiple ways to return a view with variables
 
 ```php
 // First way ->with()
@@ -702,7 +636,7 @@ return view('index', $data);
 return view('index', compact('projects', 'tasks'));
 ```
 
-### Schedule regular shell commands
+## Schedule regular shell commands
 
 We can schedule regular shell commands within Laravel scheduled command
 
@@ -718,9 +652,9 @@ class Kernel extends ConsoleKernel
 }
 ```
 
-Tip given by [@anwar_nairi](https://twitter.com/anwar_nairi/status/1448985254794915845)
+Tip 来自 [@anwar_nairi](https://twitter.com/anwar_nairi/status/1448985254794915845)
 
-### HTTP client request without verifying
+## HTTP client request without verifying
 
 Sometimes, you may want to send HTTP request without verifying SSL in your local environment, you can do like so:
 
@@ -737,9 +671,9 @@ return Http::withOptions([
 ])->post('https://example.com');
 ```
 
-Tip given by [@raditzfarhan](https://github.com/raditzfarhan)
+Tip 来自 [@raditzfarhan](https://github.com/raditzfarhan)
 
-### Test that doesn't assert anything
+## Test that doesn't assert anything
 
 Test that doesn't assert anything, just launch something which may or may not throw an exception
 
@@ -757,7 +691,7 @@ class MigrationsTest extends TestCase
 }
 ```
 
-### "Str::mask()" method
+## "Str::mask()" method
 
 Laravel 8.69 released with "Str::mask()" method which masks a portion of string with a repeated character
 
@@ -778,9 +712,9 @@ class PasswordResetLinkController extends Controller
 }
 ```
 
-Tip given by [@Teacoders](https://twitter.com/Teacoders/status/1457029765634744322)
+Tip 来自 [@Teacoders](https://twitter.com/Teacoders/status/1457029765634744322)
 
-### Extending Laravel classes
+## Extending Laravel classes
 
 There is a method called macro on a lot of built-in Laravel classes. For example Collection, Str, Arr, Request, Cache, File, and so on.
 
@@ -795,9 +729,9 @@ Str::macro('lowerSnake', function (string $str) {
 Str::lowerSnake('MyString');
 ```
 
-Tip given by [@mmartin_joo](https://twitter.com/mmartin_joo/status/1457635252466298885)
+Tip 来自 [@mmartin_joo](https://twitter.com/mmartin_joo/status/1457635252466298885)
 
-### Can feature
+## Can feature
 
 If you are running Laravel `v8.70`, you can chain `can()` method directly instead of `middleware('can:..')`
 
@@ -815,9 +749,9 @@ Route::get('users/{user}/edit', function (User $user) {
 // PS: you must write UserPolicy to be able to do this in both cases
 ```
 
-Tip given by [@sky_0xs](https://twitter.com/sky_0xs/status/1458179766192853001)
+Tip 来自 [@sky_0xs](https://twitter.com/sky_0xs/status/1458179766192853001)
 
-### Temporary download URLs
+## Temporary download URLs
 
 You can use temporary download URLs for your cloud storage resources to prevent unwanted access. For example, when a user wants to download a file, we redirect to a s3 resource but have the URL expire in 5 seconds.
 
@@ -831,9 +765,9 @@ public function download(File $file)
 }
 ```
 
-Tip given by [@Philo01](https://twitter.com/Philo01/status/1458791323889197064)
+Tip 来自 [@Philo01](https://twitter.com/Philo01/status/1458791323889197064)
 
-### Dealing with deeply-nested arrays
+## Dealing with deeply-nested arrays
 
 If you have a complex array, you can use `data_get()` helper function to retrieve a value from a nested array using "dot" notation and wildcard.
 
@@ -861,9 +795,9 @@ $value = $payload['request']['user']['name'];
 $value = data_get($payload, 'request.user.name', 'John')
 ```
 
-Tip given by [@mattkingshott](https://twitter.com/mattkingshott/status/1460970984568094722)
+Tip 来自 [@mattkingshott](https://twitter.com/mattkingshott/status/1460970984568094722)
 
-### Customize how your exceptions are rendered
+## Customize how your exceptions are rendered
 
 You can customize how your exceptions are rendered by adding a 'render' method to your exception.
 
@@ -898,9 +832,9 @@ class LicenseExpiredException extends BaseException
 }
 ```
 
-Tip given by [@Philo01](https://twitter.com/Philo01/status/1461331239240192003/)
+Tip 来自 [@Philo01](https://twitter.com/Philo01/status/1461331239240192003/)
 
-### The tap helper
+## The tap helper
 
 The `tap` helper is a great way to remove a separate return statement after calling a method on an object. Makes things nice and clean
 
@@ -914,9 +848,9 @@ return $user;
 return tap($user)->update(['name' => 'John Doe']);
 ```
 
-Tip given by [@mattkingshott](https://twitter.com/mattkingshott/status/1462058149314183171)
+Tip 来自 [@mattkingshott](https://twitter.com/mattkingshott/status/1462058149314183171)
 
-### Reset all of the remaining time units
+## Reset all of the remaining time units
 
 You can insert an exclamation into the `DateTime::createFromFormat` method to reset all of the remaining time units
 
@@ -931,9 +865,9 @@ DateTime::createFromFormat('!Y-m-d', '2021-10-12');
 DateTime::createFromFormat('!Y-m-d H', '2021-10-12');
 ```
 
-Tip given by [@SteveTheBauman](https://twitter.com/SteveTheBauman/status/1448045021006082054)
+Tip 来自 [@SteveTheBauman](https://twitter.com/SteveTheBauman/status/1448045021006082054)
 
-### Scheduled commands in the console kernel can automatically email their output if something goes wrong
+## Scheduled commands in the console kernel can automatically email their output if something goes wrong
 
 Did you know that any commands you schedule in the console kernel can automatically email their output if something goes wrong
 
@@ -944,9 +878,9 @@ $schedule
     ->emailOutputOnFailure(config('mail.support'));
 ```
 
-Tip given by [@mattkingshott](https://twitter.com/mattkingshott/status/1463160409905455104)
+Tip 来自 [@mattkingshott](https://twitter.com/mattkingshott/status/1463160409905455104)
 
-### Be careful when constructing your custom filtered queries using GET parameters
+## Be careful when constructing your custom filtered queries using GET parameters
 
 ```php
 if (request()->has('since')) {
@@ -966,9 +900,9 @@ if (request()->filled('key')) {
 }
 ```
 
-Tip given by [@mc0de](https://twitter.com/mc0de/status/1465209203472146434)
+Tip 来自 [@mc0de](https://twitter.com/mc0de/status/1465209203472146434)
 
-### Dust out your bloated route file
+## Dust out your bloated route file
 
 Dust out your bloated route file and split it up to keep things organized
 
@@ -1001,9 +935,9 @@ class RouteServiceProvider extends ServiceProvider
 }
 ```
 
-Tip given by [@Philo01](https://twitter.com/Philo01/status/1466068376330153984)
+Tip 来自 [@Philo01](https://twitter.com/Philo01/status/1466068376330153984)
 
-### You can send e-mails to a custom log file
+## You can send e-mails to a custom log file
 
 In Laravel you can send e-mails to a custom log file.
 
@@ -1028,9 +962,9 @@ Now you have all your e-mails in /logs/mails.log
 
 It's a good use case to quickly test your mails.
 
-Tip given by [@mmartin_joo](https://twitter.com/mmartin_joo/status/1466362508571131904)
+Tip 来自 [@mmartin_joo](https://twitter.com/mmartin_joo/status/1466362508571131904)
 
-### Markdown made easy
+## Markdown made easy
 
 Laravel provides an interface to convert markdown in HTML out of the box, without the need to install new composer packages.
 
@@ -1044,9 +978,9 @@ Output:
 <h1>Changelogfy</h1>
 ```
 
-Tip given by [@paulocastellano](https://twitter.com/paulocastellano/status/1467478502400315394)
+Tip 来自 [@paulocastellano](https://twitter.com/paulocastellano/status/1467478502400315394)
 
-### Simplify if on a request with whenFilled() helper
+## Simplify if on a request with whenFilled() helper
 
 We often write if statements to check if a value is present on a request or not.
 
@@ -1063,9 +997,9 @@ public function store(Request $request)
 }
 ```
 
-Tip given by [@mmartin_joo](https://twitter.com/mmartin_joo/status/1467886802711293959)
+Tip 来自 [@mmartin_joo](https://twitter.com/mmartin_joo/status/1467886802711293959)
 
-### Pass arguments to middleware
+## Pass arguments to middleware
 
 You can pass arguments to your middleware for specific routes by appending ':' followed by the value. For example, I'm enforcing different authentication methods based on the route using a single middleware.
 
@@ -1091,9 +1025,9 @@ class VerifyLicense
 }
 ```
 
-Tip given by [@Philo01](https://twitter.com/Philo01/status/1471864630486179840)
+Tip 来自 [@Philo01](https://twitter.com/Philo01/status/1471864630486179840)
 
-### Get value from session and forget
+## Get value from session and forget
 
 If you need to grab something from the Laravel session, then forget it immediately, consider using `session()->pull($value)`. It completes both steps for you.
 
@@ -1109,9 +1043,9 @@ return redirect($path);
 return redirect(session()->pull('before-github-redirect', '/components'))
 ```
 
-Tip given by [@jasonlbeggs](https://twitter.com/jasonlbeggs/status/1471905631619715077)
+Tip 来自 [@jasonlbeggs](https://twitter.com/jasonlbeggs/status/1471905631619715077)
 
-### $request->date() method
+## $request->date() method
 
 New in this week's Laravel v8.77: `$request->date()` method.
 
@@ -1119,7 +1053,7 @@ Now you don't need to call Carbon manually, you can do something like: `$post->p
 
 [Link to full pr](https://github.com/laravel/framework/pull/39945) by [@DarkGhostHunter](https://twitter.com/DarkGhostHunter)
 
-### Use through instead of map when using pagination
+## Use through instead of map when using pagination
 
 When you want to map paginated data and return only a subset of the fields, use `through` rather than `map`. The `map` breaks the pagination object and changes it's identity. While, `through` works on the paginated data itself
 
@@ -1137,9 +1071,9 @@ $employees = Employee::paginate(10)->through(fn ($employee) => [
 ])
 ```
 
-Tip given by [@bhaidar](https://twitter.com/bhaidar/status/1475073910383120399)
+Tip 来自 [@bhaidar](https://twitter.com/bhaidar/status/1475073910383120399)
 
-### Quickly add a bearer token to HTTP request
+## Quickly add a bearer token to HTTP request
 
 There’s a `withToken` method to attach the `Authorization` header to a request.
 
@@ -1153,9 +1087,9 @@ Http::withHeader([
 Http::withToken('dQw4w9WgXcq');
 ```
 
-Tip given by [@p3ym4n](https://twitter.com/p3ym4n/status/1487809735663489024)
+Tip 来自 [@p3ym4n](https://twitter.com/p3ym4n/status/1487809735663489024)
 
-### Copy file or all files from a folder
+## Copy file or all files from a folder
 
 You can use the `readStream` and `writeStream` to copy a file (or all files from a folder) from one disk to another keeping the memory usage low.
 
@@ -1180,9 +1114,9 @@ foreach ($files as $file) {
 }
 ```
 
-Tip given by [@alanrezende](https://twitter.com/alanrezende/status/1488194257567498243)
+Tip 来自 [@alanrezende](https://twitter.com/alanrezende/status/1488194257567498243)
 
-### Sessions has() vs exists() vs missing()
+## Sessions has() vs exists() vs missing()
 
 Do you know about `has`, `exists` and `missing` methods in Laravel session?
 
@@ -1197,9 +1131,9 @@ $request->session()->exists('key');
 $request->session()->missing('key');
 ```
 
-Tip given by [@iamharis010](https://twitter.com/iamharis010/status/1489086240729145344)
+Tip 来自 [@iamharis010](https://twitter.com/iamharis010/status/1489086240729145344)
 
-### Test that you are passing the correct data to a view
+## Test that you are passing the correct data to a view
 
 Need to test that you are passing the correct data to a view? You can use the viewData method on your response. Here are some examples:
 
@@ -1229,9 +1163,9 @@ public function it_returns_the_correct_amount_of_records()
 }
 ```
 
-Tip given by [@JuanRangelTX](https://twitter.com/JuanRangelTX/status/1489944361580351490)
+Tip 来自 [@JuanRangelTX](https://twitter.com/JuanRangelTX/status/1489944361580351490)
 
-### Use Redis to track page views
+## Use Redis to track page views
 
 Tracking something like page views with MySQL can be quite a performance hit when dealing with high traffic. Redis is much better at this. You can use Redis and a scheduled command to keep MySQL in sync on a fixed interval.
 
@@ -1270,9 +1204,9 @@ foreach ($views as $projectId => $projectViews) {
 Redis::del('project-views');
 ```
 
-Tip given by [@Philo01](https://twitter.com/JackEllis/status/1491909483496411140)
+Tip 来自 [@Philo01](https://twitter.com/JackEllis/status/1491909483496411140)
 
-### to_route() helper function
+## to_route() helper function
 
 Laravel 9 provides shorter version of `response()->route()`, take a look on the following code:
 
@@ -1291,9 +1225,9 @@ Route::get('redirectRoute', function() {
 
 This helper work in the same way as `redirect()->route('home')`, but it is more concise than an old way.
 
-Tip given by [@CatS0up](https://github.com/CatS0up)
+Tip 来自 [@CatS0up](https://github.com/CatS0up)
 
-### Pause a long running job when queue worker shuts down
+## Pause a long running job when queue worker shuts down
 
 When running a long job, if your queue worker gets shutdown by
 
@@ -1359,9 +1293,9 @@ class MyLongJob implements ShouldQueue
 }
 ```
 
-Tip given by [@a-h-abid](https://github.com/a-h-abid)
+Tip 来自 [@a-h-abid](https://github.com/a-h-abid)
 
-### Freezing Time in Laravel Tests
+## Freezing Time in Laravel Tests
 
 In your Laravel tests, you might sometimes need to freeze the time.
 
@@ -1376,9 +1310,9 @@ $this->travelTo(Carbon::now());
 $this->freezeTime();
 ```
 
-Tip given by [@AshAllenDesign](https://twitter.com/AshAllenDesign/status/1509115721183158272)
+Tip 来自 [@AshAllenDesign](https://twitter.com/AshAllenDesign/status/1509115721183158272)
 
-### New squish helper
+## New squish helper
 
 New in Laravel from 9.7 `squish` helper.
 
@@ -1387,9 +1321,9 @@ $result = Str::squish(' Hello   John,         how   are   you?    ');
 // Hello John, how are you?
 ```
 
-Tip given by [@mattkingshott](https://twitter.com/mattkingshott/status/1511718052752150534)
+Tip 来自 [@mattkingshott](https://twitter.com/mattkingshott/status/1511718052752150534)
 
-### Specify what to do if a scheduled task fails or succeeds
+## Specify what to do if a scheduled task fails or succeeds
 
 You can specify what to do if a scheduled task fails or succeeds.
 
@@ -1404,9 +1338,9 @@ $schedule->command('emails:send')
         });
 ```
 
-Tip given by [@cosmeescobedo](https://twitter.com/cosmeescobedo/status/1513221529072414720)
+Tip 来自 [@cosmeescobedo](https://twitter.com/cosmeescobedo/status/1513221529072414720)
 
-### Scheduled command on specific environments
+## Scheduled command on specific environments
 
 Running Laravel scheduled command on specific environments.
 
@@ -1422,9 +1356,9 @@ $schedule->command('emails:send')
         ->onEnvironment(['production', 'staging']);
 ```
 
-Tip given by [@nguyenduy4994](https://twitter.com/nguyenduy4994/status/1516960273000587265)
+Tip 来自 [@nguyenduy4994](https://twitter.com/nguyenduy4994/status/1516960273000587265)
 
-### Add conditionable behavior to your own classes
+## Add conditionable behavior to your own classes
 
 You can use the [Conditionable Trait](https://laravel.com/api/9.x/Illuminate/Support/Traits/Conditionable.html) to avoid using `if/else` and promote method chaining.
 
@@ -1477,7 +1411,7 @@ class MyController extends Controller
 }
 ```
 
-### Perform Action when Job has failed
+## Perform Action when Job has failed
 
 In some cases, we want to perform some action when job has failed. For example, send an email or a notification.
 
@@ -1506,10 +1440,10 @@ class CalculateSingleConsignment implements ShouldQueue
 }
 ```
 
-Tip given by [@pauloimon](https://github.com/pauloimon)
+Tip 来自 [@pauloimon](https://github.com/pauloimon)
 
 
-### Ignore Database when Job has failed
+## Ignore Database when Job has failed
 
 If you ever need to bypass database when a job fails, you can do one of the below things to skip database:
 - Set env `QUEUE_FAILED_DRIVER` with value `null`. Works from Laravel 8 and above.
@@ -1521,5 +1455,5 @@ If you ever need to bypass database when a job fails, you can do one of the belo
 
 Why you would want this? For applications where you do not need to store failed jobs and they needs to have very high TPS, skipping database can be very favourable as we are not hitting database, saving times & prevent database going down.
 
-Tip given by [@a-h-abid](https://github.com/a-h-abid)
+Tip 来自 [@a-h-abid](https://github.com/a-h-abid)
 

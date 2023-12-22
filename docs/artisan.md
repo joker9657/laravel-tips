@@ -1,20 +1,10 @@
-## Artisan
+# Artisan 命令行
 
-⬆️ [Go to main menu](README.md#laravel-tips) ⬅️ [Previous (Mail)](mail.md) ➡️ [Next (Factories)](factories.md)
+⬆️ [回到主页](README.md#laravel-tips) ⬅️ [上一条 (发送邮件)](mail.md) ➡️ [下一条 (工厂)](factories.md)
 
-- [Artisan command parameters](#artisan-command-parameters)
-- [Execute a Closure after command runs without errors or has any errors](#execute-a-closure-after-command-runs-without-errors-or-has-any-errors)
-- [Run artisan commands on specific environments](#run-artisan-commands-on-specific-environments)
-- [Maintenance Mode](#maintenance-mode)
-- [Artisan command help](#artisan-command-help)
-- [Exact Laravel version](#exact-laravel-version)
-- [Launch Artisan command from anywhere](#launch-artisan-command-from-anywhere)
-- [Hide your custom command](#hide-your-custom-command)
-- [Skip method](#skip-method)
+## Artisan 命令参数
 
-### Artisan command parameters
-
-When creating Artisan command, you can ask the input in variety of ways: `$this->confirm()`, `$this->anticipate()`, `$this->choice()`.
+在创建 Artisan 命令时，你可以以多种方式询问输入： `$this->confirm()`, `$this->anticipate()`, `$this->choice()`.
 
 ```php
 // Yes or no?
@@ -29,9 +19,9 @@ $name = $this->anticipate('What is your name?', ['Taylor', 'Dayle']);
 $name = $this->choice('What is your name?', ['Taylor', 'Dayle'], $defaultIndex);
 ```
 
-### Execute a Closure after command runs without errors or has any errors
+## 在命令运行完成或出现错误后执行闭包
 
-With Laravel scheduler you can execute a Closure when a command runs without errors with the onSuccess() method and also when a command has any errors with the onFailure() method.
+使用 Laravel 调度器，你可以在命令成功运行时使用 `onSuccess()` 方法执行闭包，也可以在命令出现任何错误时使用 `onFailure()` 方法执行闭包。
 
 ```php
 protected function schedule(Schedule $schedule)
@@ -43,11 +33,11 @@ protected function schedule(Schedule $schedule)
 }
 ```
 
-Tip given by [@wendell_adriel](https://twitter.com/wendell_adriel)
+Tip 来自 [@wendell_adriel](https://twitter.com/wendell_adriel)
 
-### Run artisan commands on specific environments
+## 在特定环境中运行 artisan 命令
 
-Take control of your Laravel scheduled commands. Run them on specific environments for ultimate flexibility.
+掌控你的 Laravel 定时命令。在特定环境中运行它们，以获得最大的灵活性。
 
 ```php
 $schedule->command('reports:send')
@@ -55,48 +45,48 @@ $schedule->command('reports:send')
     ->environments(['production', 'staging']);
 ```
 
-Tip given by [@LaraShout](https://twitter.com/LaraShout)
+Tip 来自 [@LaraShout](https://twitter.com/LaraShout)
 
-### Maintenance Mode
+## 维护模式
 
-If you want to enable maintenance mode on your page, execute the down Artisan command:
+如果你想在网站上启用维护模式，请执行 down Artisan 命令：
 
 ```bash
 php artisan down
 ```
 
-Then people would see default 503 status page.
+然后人们将看到默认的 503 状态页面。
 
-You may also provide flags, in Laravel 8:
+你还可以提供标志，在 Laravel 8 中：
 
-- the path the user should be redirected to
-- the view that should be prerendered
-- secret phrase to bypass maintenance mode
-- retry page reload every X seconds
+- 用户应重定向到的路径
+- 预渲染的视图
+- 绕过维护模式的秘密短语
+- 每 X 秒重试页面加载
 
 ```bash
 php artisan down --redirect="/" --render="errors::503" --secret="1630542a-246b-4b66-afa1-dd72a4c43515" --retry=60
 ```
 
-Before Laravel 8:
+在 Laravel 8 之前:
 
-- message that would be shown
-- retry page reload every X seconds
-- still allow the access to some IP address
+- 将显示的消息
+- 每 X 秒重试页面加载页面
+- 某些 IP 仍然允许访问
 
 ```bash
 php artisan down --message="Upgrading Database" --retry=60 --allow=127.0.0.1
 ```
 
-When you've done the maintenance work, just run:
+完成维护工作后，运行以下命令：
 
 ```bash
 php artisan up
 ```
 
-### Artisan command help
+## Artisan 命令帮助
 
-To check the options of artisan command, Run artisan commands with `--help` flag. For example, `php artisan make:model --help` and see how many options you have:
+要查看 artisan 命令的选项，请在命令后加上 `--help` 标志。例如，`php artisan make:model --help`，然后查看可用的选项。
 
 ```
 Options:
@@ -123,14 +113,13 @@ Options:
   -v|vv|vvv, --verbose  Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
 ```
 
-### Exact Laravel version
+## 精确确定 Laravel 版本
 
-Find out exactly what Laravel version you have in your app, by running command
-`php artisan --version`
+通过运行命令 `php artisan --version` 来准确确定你的应用程序中使用的 Laravel 版本。
 
-### Launch Artisan command from anywhere
+## 从任何地方启动 Artisan 命令
 
-If you have an Artisan command, you can launch it not only from Terminal, but also from anywhere in your code, with parameters. Use Artisan::call() method:
+如果你有一个 Artisan 命令，你不仅可以从终端中启动它，还可以从代码的任何位置以及带有参数的方式启动。使用 Artisan::call() 方法：
 
 ```php
 Route::get('/foo', function () {
@@ -142,9 +131,9 @@ Route::get('/foo', function () {
 });
 ```
 
-### Hide your custom command
+## 隐藏自定义命令
 
-If you don't want to show a specific command on the artisan command list, set `hidden` property to `true`
+如果你不想在 artisan 命令列表中显示特定命令，请将 `hidden` 属性设置为 `true`。
 
 ```php
 class SendMail extends Command
@@ -154,15 +143,15 @@ class SendMail extends Command
 }
 ```
 
-You won't see `send:mail` on the available commands if you typed `php artisan`
+如果你在命令行输入 `php artisan`，则不会看到 `send:mail` 在可用命令中的显示。
 
-Tip given by [@sky_0xs](https://twitter.com/sky_0xs/status/1487921500023832579)
+Tip 来自 [@sky_0xs](https://twitter.com/sky_0xs/status/1487921500023832579)
 
-### Skip method
+## 跳过方法
 
-Laravel the skip method in scheduler
+Laravel 调度器中的 `skip` 方法
 
-You can use `skip` in your commands to skip an execution
+你可以在命令中使用 `skip` 来跳过执行。
 
 ```php
 $schedule->command('emails:send')->daily()->skip(function () {
@@ -170,5 +159,5 @@ $schedule->command('emails:send')->daily()->skip(function () {
 });
 ```
 
-Tip given by [@cosmeescobedo](https://twitter.com/cosmeescobedo/status/1494503181438492675)
+Tip 来自 [@cosmeescobedo](https://twitter.com/cosmeescobedo/status/1494503181438492675)
 

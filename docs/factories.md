@@ -1,19 +1,10 @@
-## Factories
+# 工厂
 
-⬆️ [Go to main menu](README.md#laravel-tips) ⬅️ [Previous (Artisan)](artisan.md) ➡️ [Next (Log and debug)](log-and-debug.md)
+⬆️ [回到主页](README.md#laravel-tips) ⬅️ [上一条 (Artisan)](artisan.md) ➡️ [下一条 (日志和调试)](log-and-debug.md)
 
-- [Factory callbacks](#factory-callbacks)
-- [Generate Images with Seeds/Factories](#generate-images-with-seedsfactories)
-- [Override values and apply custom login to them](#override-values-and-apply-custom-login-to-them)
-- [Using factories with relationships](#using-factories-with-relationships)
-- [Create models without dispatching any events](#create-models-without-dispatching-any-events)
-- [Useful for() method](#useful-for-method)
-- [Run factories without dispatching events](#run-factories-without-dispatching-events)
-- [Specify dependencies in the run() method](#specify-dependencies-in-the-run-method)
+## 工厂回调函数
 
-### Factory callbacks
-
-While using factories for seeding data, you can provide Factory Callback functions to perform some action after record is inserted.
+在使用工厂生成种子数据时，你可以提供工厂回调函数来在记录插入后执行某些操作。
 
 ```php
 $factory->afterCreating(App\User::class, function ($user, $faker) {
@@ -21,9 +12,9 @@ $factory->afterCreating(App\User::class, function ($user, $faker) {
 });
 ```
 
-### Generate Images with Seeds/Factories
+## 使用 Seeds / Factories 生成图像
 
-Did you know that Faker can generate not only text values but also IMAGES? See `avatar` field here - it will generate 50x50 image:
+你知道吗，Faker 不仅可以生成文本值，还可以生成图像？在这里看到 `avatar` 字段 - 它将生成一个 50x50 的图像：
 
 ```php
 $factory->define(User::class, function (Faker $faker) {
@@ -38,9 +29,9 @@ $factory->define(User::class, function (Faker $faker) {
 });
 ```
 
-### Override values and apply custom login to them
+## 覆盖值并应用自定义逻辑
 
-When creating records with Factories, you can use Sequence class to override some values and apply custom logic to them.
+在使用工厂创建记录时，你可以使用 Sequence 类来覆盖某些值并应用自定义逻辑。
 
 ```php
 $users = User::factory()
@@ -52,9 +43,9 @@ $users = User::factory()
                 ->create();
 ```
 
-### Using factories with relationships
+## 使用关联的工厂
 
-When using factories with relationships, Laravel also provides magic methods.
+在使用关联的工厂时，Laravel 还提供了魔术方法。
 
 ```php
 // magic factory relationship methods
@@ -64,11 +55,11 @@ User::factory()->hasPosts(3)->create();
 User::factory()->has(Post::factory()->count(3))->create();
 ```
 
-Tip given by [@oliverds\_](https://twitter.com/oliverds_/status/1441447356323430402)
+Tip 来自 [@oliverds\_](https://twitter.com/oliverds_/status/1441447356323430402)
 
-### Create models without dispatching any events
+## 创建模型时不触发任何事件
 
-Sometimes you may wish to `update` a given model without dispatching any events. You may accomplish this using the `updateQuietly` method
+有时你可能希望在不触发任何事件的情况下 `update` 给定的模型。你可以使用 `updateQuietly` 方法来实现这一点。
 
 ```php
 Post::factory()->createOneQuietly();
@@ -81,9 +72,9 @@ Post::factory()->createManyQuietly([
 ]);
 ```
 
-### Useful for() method
+## 有用的 for() 方法
 
-The Laravel factory has a very useful `for()` method. You can use it to create `belongsTo()` relationships.
+Laravel 工厂有一个非常有用的 `for()` 方法。你可以使用它来创建 `belongsTo()` 关联。
 
 ```php
 public function run()
@@ -95,11 +86,11 @@ public function run()
 }
 ```
 
-Tip given by [@mmartin_joo](https://twitter.com/mmartin_joo/status/1461002439629361158)
+Tip 来自 [@mmartin_joo](https://twitter.com/mmartin_joo/status/1461002439629361158)
 
-### Run factories without dispatching events
+## 在不触发事件的情况下运行工厂
 
-If you want to create multiple records using Factory without firing any Events, you can wrap your code inside a withoutEvents closure.
+如果你想使用工厂创建多个记录而不触发任何事件，可以将代码包装在 withoutEvents 闭包中。
 
 ```php
 $posts = Post::withoutEvents(function () {
@@ -107,10 +98,11 @@ $posts = Post::withoutEvents(function () {
 });
 ```
 
-Tip given by [@TheLaravelDev](https://twitter.com/TheLaravelDev/status/1510965402666676227)
+Tip 来自 [@TheLaravelDev](https://twitter.com/TheLaravelDev/status/1510965402666676227)
 
-### Specify dependencies in the run() method
+## 在 run() 方法中指定依赖关系
 
+你可以在 seeder 的 `run()` 方法中指定依赖关系。
 You can specify dependencies in the `run()` method of your seeder.
 
 ```php
@@ -140,5 +132,5 @@ class EventSeeder extends Seeder
 }
 ```
 
-Tip given by [@justsanjit](https://twitter.com/justsanjit/status/1514428294418079746)
+Tip 来自 [@justsanjit](https://twitter.com/justsanjit/status/1514428294418079746)
 
