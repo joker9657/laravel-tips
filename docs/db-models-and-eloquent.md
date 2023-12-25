@@ -2053,3 +2053,69 @@ class CustomModel extends Model
     protected $connection = 'your_custom_connection';
 }
 ```
+
+## 在 Where 子句中使用列名（动态 Where 子句）
+
+您可以在 where 子句中使用列名来创建动态 where 子句。 在下面的示例中，我们使用 `whereName('John')` 而不是 `where('name', 'John')`。
+
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\User;
+
+class UserController extends Controller
+{
+    public function example()
+    {
+        return User::whereName('John')->get();
+    }
+}
+```
+
+Tip 来自 [@MNurullahSaglam](https://twitter.com/MNurullahSaglam/status/1699763337586749585)
+
+## 使用 firstOrCreate()
+
+您可以使用 firstOrCreate() 查找与属性匹配的第一条记录，如果不存在则创建它。
+
+### 示例场景
+
+假设您正在导入 CSV 文件，并且您想要创建一个类别（如果该类别不存在）。
+
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Category;
+use Illuminate\Http\Request;
+
+class CategoryController extends Controller
+{
+    public function example(Request $request)
+    {
+        // instead of
+        $category = Category::where('name', $request->name)->first();
+        
+        if (!$category) {
+            $category = Category::create([
+                'name' => $request->name,
+                'slug' => Str::slug($request->name),
+            ]);
+        }
+        
+        // you can use
+        $category = Category::firstOrCreate([
+            'name' => $request->name,
+        ], [
+            'slug' => Str::slug($request->name),
+        ]);
+
+        return $category;
+    }
+}
+```
+
+Tip 来自 [@MNurullahSaglam](https://twitter.com/MNurullahSaglam/status/1699773783748366478)
