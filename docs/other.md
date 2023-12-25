@@ -437,11 +437,11 @@ class WhateverController extends Controller
 }
 ```
 
-## Schedule things
+## 定时任务
 
-You can schedule things to run daily/hourly in a lot of different structures.
+你可以以多种不同的结构来安排每天/每小时运行的定时任务。
 
-You can schedule an artisan command, a Job class, an invokable class, a callback function, and even execute a shell script.
+你可以安排一个 Artisan 命令、一个 Job 类、一个可调用类、一个回调函数，甚至执行一个 shell 脚本。
 
 ```php
 use App\Jobs\Heartbeat;
@@ -470,21 +470,21 @@ protected function schedule(Schedule $schedule)
 }
 ```
 
-## Search Laravel docs
+## 搜索 Laravel 文档
 
-If you want to search Laravel Docs for some keyword, by default it gives you only the TOP 5 results. Maybe there are more?
+如果你想在 Laravel 文档中搜索某个关键词，默认情况下只会显示前 5 个结果。也许还有更多的结果？
 
-If you want to see ALL results, you may go to the GitHub Laravel docs repository and search there directly. https://github.com/laravel/docs
+如果你想查看所有结果，你可以直接访问 GitHub 上的 Laravel 文档存储库进行搜索。https://github.com/laravel/docs
 
-## Filter route:list
+## 过滤路由列表
 
-New in Laravel 8.34: `php artisan route:list` gets additional flag `--except-path`, so you would filter out the routes you don't want to see. [See original PR](https://github.com/laravel/framework/pull/36619)
+在 Laravel 8.34 中新增了 `php artisan route:list` 命令的 `--except-path` 标志，因此你可以过滤掉你不想看到的路由。[查看原始 PR](https://github.com/laravel/framework/pull/36619)
 
-## Blade directive for not repeating yourself
+## Blade 指令以避免重复
 
-If you keep doing the same formatting of the data in multiple Blade files, you may create your own Blade directive.
+如果你在多个 Blade 文件中反复进行相同的数据格式化操作，你可以创建自己的 Blade 指令。
 
-Here's an example of money amount formatting using the method from Laravel Cashier.
+下面是使用 Laravel Cashier 中的方法进行金额格式化的示例。
 
 ```php
 "require": {
@@ -508,13 +508,13 @@ public function boot()
 @endif
 ```
 
-## Artisan commands help
+## Artisan 命令帮助
 
-If you are not sure about the parameters of some Artisan command, or you want to know what parameters are available, just type `php artisan help [a command you want]`.
+如果你对某个 Artisan 命令的参数不确定，或者想知道有哪些可用参数，只需输入 `php artisan help [你想要的命令]`。
 
-## Disable lazy loading when running your tests
+## 在测试中禁用惰性加载
 
-If you don't want to prevent lazy loading when running your tests you can disable it
+如果你不想在运行测试时阻止延迟加载，你可以禁用它
 
 ```php
 Model::preventLazyLoading(!$this->app->isProduction() && !$this->app->runningUnitTests());
@@ -522,11 +522,11 @@ Model::preventLazyLoading(!$this->app->isProduction() && !$this->app->runningUni
 
 Tip 来自 [@djgeisi](https://twitter.com/djgeisi/status/1435538167290073090)
 
-## Using two amazing helpers in Laravel will bring magic results
+## 使用 Laravel 的两个强大助手函数会带来神奇的结果
 
-Using two amazing helpers in Laravel will bring magic results...
+在 Laravel 中使用两个强大的助手函数会带来神奇的结果...
 
-In this case, the service will be called and retried (retry). If it stills failing, it will be reported, but the request won't fail (rescue)
+在这个例子中，服务将被调用并重试（retry）。如果仍然失败，将会报告错误，但请求不会失败（rescue）
 
 ```php
 rescue(function () {
@@ -538,9 +538,9 @@ rescue(function () {
 
 Tip 来自 [@JuanDMeGon](https://twitter.com/JuanDMeGon/status/1435466660467683328)
 
-## Request parameter default value
+## 请求参数的默认值
 
-Here we are checking if there is a per_page (or any other parameter) value then we will use it, otherwise, we will use a default one.
+在这里，我们检查是否存在 per_page（或任何其他参数）的值，如果存在，则使用它；否则，使用默认值。
 
 ```php
 // Isteand of this
@@ -552,7 +552,7 @@ $perPage = request('per_page', 20);
 
 Tip 来自 [@devThaer](https://twitter.com/devThaer/status/1437521022631165957)
 
-## Pass middleware directly into the route without register it
+## 直接将中间件传递给路由，无需注册
 
 ```php
 Route::get('posts', PostController::class)
@@ -561,7 +561,7 @@ Route::get('posts', PostController::class)
 
 Tip 来自 [@sky_0xs](https://twitter.com/sky_0xs/status/1438258486815690766)
 
-## Transforming an array to CssClasses
+## 将数组转换为 CSS 类
 
 ```php
 use Illuminate\Support\Arr;
@@ -580,11 +580,11 @@ $classes = Arr::toCssClasses($array);
 
 Tip 来自 [@dietsedev](https://twitter.com/dietsedev/status/1438550428833271808)
 
-## "upcomingInvoice" method in Laravel Cashier (Stripe)
+## Laravel Cashier (Stripe) 中的 "upcomingInvoice" 方法
 
-You can show how much a customer will pay in the next billing cycle.
+你可以显示客户在下一个计费周期中将支付的金额。
 
-There is a "upcomingInvoice" method in Laravel Cashier (Stripe) to get the upcoming invoice details.
+Laravel Cashier（Stripe）中有一个 "upcomingInvoice" 方法，用于获取即将到来的发票的详细信息。
 
 ```php
 Route::get('/profile/invoices', function (Request $request) {
@@ -611,7 +611,7 @@ $request->has('popular') // true
 
 Tip 来自 [@coderahuljat](https://twitter.com/coderahuljat/status/1442191143244951552)
 
-## There are multiple ways to return a view with variables
+## 返回带有变量的视图的多种方法
 
 ```php
 // First way ->with()
@@ -636,9 +636,9 @@ return view('index', $data);
 return view('index', compact('projects', 'tasks'));
 ```
 
-## Schedule regular shell commands
+## 定时执行 shell 命令
 
-We can schedule regular shell commands within Laravel scheduled command
+我们可以在 Laravel 的计划命令中定时执行 shell 命令。
 
 ```php
 // app/Console/Kernel.php
@@ -654,15 +654,15 @@ class Kernel extends ConsoleKernel
 
 Tip 来自 [@anwar_nairi](https://twitter.com/anwar_nairi/status/1448985254794915845)
 
-## HTTP client request without verifying
+## 发送不验证的 HTTP 客户端请求
 
-Sometimes, you may want to send HTTP request without verifying SSL in your local environment, you can do like so:
+有时，在本地环境中，你可能希望发送不验证 SSL 的 HTTP 请求，可以这样做：
 
 ```php
 return Http::withoutVerifying()->post('https://example.com');
 ```
 
-If you want to set multiple options, you can use `withOptions`.
+如果你想设置多个选项，可以使用 `withOptions` 方法。
 
 ```php
 return Http::withOptions([
@@ -673,9 +673,9 @@ return Http::withOptions([
 
 Tip 来自 [@raditzfarhan](https://github.com/raditzfarhan)
 
-## Test that doesn't assert anything
+## 不进行断言的测试
 
-Test that doesn't assert anything, just launch something which may or may not throw an exception
+有些测试不进行断言，只是启动可能会引发异常的某些内容。
 
 ```php
 class MigrationsTest extends TestCase
@@ -691,9 +691,9 @@ class MigrationsTest extends TestCase
 }
 ```
 
-## "Str::mask()" method
+## "Str::mask()" 方法
 
-Laravel 8.69 released with "Str::mask()" method which masks a portion of string with a repeated character
+Laravel 8.69 版本发布了 "Str::mask()" 方法，该方法使用重复字符对字符串的一部分进行屏蔽。
 
 ```php
 class PasswordResetLinkController extends Controller
@@ -714,11 +714,11 @@ class PasswordResetLinkController extends Controller
 
 Tip 来自 [@Teacoders](https://twitter.com/Teacoders/status/1457029765634744322)
 
-## Extending Laravel classes
+## 扩展 Laravel 类
 
-There is a method called macro on a lot of built-in Laravel classes. For example Collection, Str, Arr, Request, Cache, File, and so on.
+许多内置的 Laravel 类上都有一个名为 macro 的方法。例如 Collection、Str、Arr、Request、Cache、File 等等。
 
-You can define your own methods on these classes like this:
+你可以像这样在这些类上定义自己的方法：
 
 ```php
 Str::macro('lowerSnake', function (string $str) {
@@ -731,9 +731,9 @@ Str::lowerSnake('MyString');
 
 Tip 来自 [@mmartin_joo](https://twitter.com/mmartin_joo/status/1457635252466298885)
 
-## Can feature
+## Can 特性
 
-If you are running Laravel `v8.70`, you can chain `can()` method directly instead of `middleware('can:..')`
+如果你正在运行 Laravel `v8.70`，你可以直接链式调用 `can()` 方法，而不是使用 `middleware('can:..')`。
 
 ```php
 // instead of
@@ -751,9 +751,9 @@ Route::get('users/{user}/edit', function (User $user) {
 
 Tip 来自 [@sky_0xs](https://twitter.com/sky_0xs/status/1458179766192853001)
 
-## Temporary download URLs
+## 临时下载链接
 
-You can use temporary download URLs for your cloud storage resources to prevent unwanted access. For example, when a user wants to download a file, we redirect to a s3 resource but have the URL expire in 5 seconds.
+你可以使用临时下载链接来保护云存储资源，防止未经授权的访问。例如，当用户想要下载文件时，我们将重定向到一个带有5秒过期时间的临时的 S3 资源 URL。
 
 ```php
 public function download(File $file)
@@ -767,9 +767,9 @@ public function download(File $file)
 
 Tip 来自 [@Philo01](https://twitter.com/Philo01/status/1458791323889197064)
 
-## Dealing with deeply-nested arrays
+## 处理深层嵌套数组
 
-If you have a complex array, you can use `data_get()` helper function to retrieve a value from a nested array using "dot" notation and wildcard.
+如果你有一个复杂的数组，你可以使用 `data_get()` 辅助函数使用 "点" 符号和通配符从嵌套数组中检索值。
 
 ```php
 $data = [
@@ -785,7 +785,7 @@ data_get($data, '*.product.id');
 // Now we have all products ids [1, 2, 3, 4, 5, etc...]
 ```
 
-In the example below, if either `request`, `user` or `name` are missing then you'll get errors.
+在下面的示例中，如果 `request`、`user` 或 `name` 任何一个缺失，你将会得到错误。
 
 ```php
 $value = $payload['request']['user']['name'];
@@ -797,11 +797,11 @@ $value = data_get($payload, 'request.user.name', 'John')
 
 Tip 来自 [@mattkingshott](https://twitter.com/mattkingshott/status/1460970984568094722)
 
-## Customize how your exceptions are rendered
+## 自定义异常的呈现方式
 
-You can customize how your exceptions are rendered by adding a 'render' method to your exception.
+你可以通过在异常类中添加一个 'render' 方法来自定义异常的呈现方式。
 
-For example, this allows you to return JSON instead of a Blade view when the request expects JSON.
+例如，当请求期望 JSON 时，可以返回 JSON 而不是 Blade 视图。
 
 ```php
 abstract class BaseException extends Exception
@@ -834,9 +834,9 @@ class LicenseExpiredException extends BaseException
 
 Tip 来自 [@Philo01](https://twitter.com/Philo01/status/1461331239240192003/)
 
-## The tap helper
+## tap 辅助函数
 
-The `tap` helper is a great way to remove a separate return statement after calling a method on an object. Makes things nice and clean
+`tap` 辅助函数是一种很好的方式，可以在调用对象的方法后去除单独的返回语句，使代码更加简洁。
 
 ```php
 // without tap
@@ -850,9 +850,9 @@ return tap($user)->update(['name' => 'John Doe']);
 
 Tip 来自 [@mattkingshott](https://twitter.com/mattkingshott/status/1462058149314183171)
 
-## Reset all of the remaining time units
+## 重置剩余的时间单位
 
-You can insert an exclamation into the `DateTime::createFromFormat` method to reset all of the remaining time units
+你可以在 `DateTime::createFromFormat` 方法中插入一个感叹号来重置剩余的时间单位。
 
 ```php
 // 2021-10-12 21:48:07.0
@@ -867,9 +867,9 @@ DateTime::createFromFormat('!Y-m-d H', '2021-10-12');
 
 Tip 来自 [@SteveTheBauman](https://twitter.com/SteveTheBauman/status/1448045021006082054)
 
-## Scheduled commands in the console kernel can automatically email their output if something goes wrong
+## 在控制台内核中安排的命令在出现问题时可以自动通过电子邮件发送其输出
 
-Did you know that any commands you schedule in the console kernel can automatically email their output if something goes wrong
+你知道在控制台内核中安排的任何命令在出现问题时可以自动通过电子邮件发送其输出吗？
 
 ```php
 $schedule
@@ -880,7 +880,7 @@ $schedule
 
 Tip 来自 [@mattkingshott](https://twitter.com/mattkingshott/status/1463160409905455104)
 
-## Be careful when constructing your custom filtered queries using GET parameters
+## 使用 GET 参数构建自定义过滤查询时要小心
 
 ```php
 if (request()->has('since')) {
@@ -902,9 +902,9 @@ if (request()->filled('key')) {
 
 Tip 来自 [@mc0de](https://twitter.com/mc0de/status/1465209203472146434)
 
-## Dust out your bloated route file
+## 清理你臃肿的路由文件
 
-Dust out your bloated route file and split it up to keep things organized
+清理你臃肿的路由文件并将其拆分以保持井井有条
 
 ```php
 class RouteServiceProvider extends ServiceProvider
@@ -937,18 +937,18 @@ class RouteServiceProvider extends ServiceProvider
 
 Tip 来自 [@Philo01](https://twitter.com/Philo01/status/1466068376330153984)
 
-## You can send e-mails to a custom log file
+## 将电子邮件发送到自定义日志文件
 
-In Laravel you can send e-mails to a custom log file.
+在 Laravel 中，你可以将电子邮件发送到自定义日志文件。
 
-You can set your environment variables like this:
+你可以像这样设置环境变量：
 
 ```
 MAIL_MAILER=log
 MAIL_LOG_CHANNEL=mail
 ```
 
-And also configure your log channel:
+还可以配置日志通道：
 
 ```php
 'mail' => [
@@ -958,21 +958,21 @@ And also configure your log channel:
 ],
 ```
 
-Now you have all your e-mails in /logs/mails.log
+现在你的所有电子邮件都在 /logs/mails.log 中。
 
-It's a good use case to quickly test your mails.
+这是一个快速测试邮件的好例子。
 
 Tip 来自 [@mmartin_joo](https://twitter.com/mmartin_joo/status/1466362508571131904)
 
-## Markdown made easy
+## 简化Markdown转换为HTML
 
-Laravel provides an interface to convert markdown in HTML out of the box, without the need to install new composer packages.
+Laravel 提供了一个接口，可以直接将 Markdown 转换为 HTML，无需安装新的 composer 包。
 
 ```php
 $html = Str::markdown('# Changelogfy')
 ```
 
-Output:
+输出:
 
 ```
 <h1>Changelogfy</h1>
@@ -980,11 +980,11 @@ Output:
 
 Tip 来自 [@paulocastellano](https://twitter.com/paulocastellano/status/1467478502400315394)
 
-## Simplify if on a request with whenFilled() helper
+## 使用 whenFilled() 助手简化请求中的条件判断
 
-We often write if statements to check if a value is present on a request or not.
+我们经常编写 if 语句来检查请求中是否存在某个值。
 
-You can simplify it with the `whenFilled()` helper.
+你可以使用 `whenFilled()` 助手来简化它。
 
 ```php
 public function store(Request $request)
@@ -999,9 +999,9 @@ public function store(Request $request)
 
 Tip 来自 [@mmartin_joo](https://twitter.com/mmartin_joo/status/1467886802711293959)
 
-## Pass arguments to middleware
+## 向中间件传递参数
 
-You can pass arguments to your middleware for specific routes by appending ':' followed by the value. For example, I'm enforcing different authentication methods based on the route using a single middleware.
+你可以通过在路由后面添加 ':' 和值来为特定路由传递参数。例如，我正在使用单个中间件根据路由强制执行不同的身份验证方法。
 
 ```php
 Route::get('...')->middleware('auth.license');
@@ -1027,9 +1027,9 @@ class VerifyLicense
 
 Tip 来自 [@Philo01](https://twitter.com/Philo01/status/1471864630486179840)
 
-## Get value from session and forget
+## 从会话中获取值并删除
 
-If you need to grab something from the Laravel session, then forget it immediately, consider using `session()->pull($value)`. It completes both steps for you.
+如果你需要从 Laravel 会话中获取某些内容，然后立即删除它，请考虑使用 `session()->pull($value)`。它为你完成了这两个步骤。
 
 ```php
 // Before
@@ -1045,17 +1045,17 @@ return redirect(session()->pull('before-github-redirect', '/components'))
 
 Tip 来自 [@jasonlbeggs](https://twitter.com/jasonlbeggs/status/1471905631619715077)
 
-## $request->date() method
+## $request->date() 方法
 
-New in this week's Laravel v8.77: `$request->date()` method.
+在 Laravel v8.77 中新增了 `$request->date()` 方法。
 
-Now you don't need to call Carbon manually, you can do something like: `$post->publish_at = $request->date('publish_at')->addHour()->startOfHour();`
+现在你不需要手动调用 Carbon，可以像这样使用：`$post->publish_at = $request->date('publish_at')->addHour()->startOfHour()`;
 
-[Link to full pr](https://github.com/laravel/framework/pull/39945) by [@DarkGhostHunter](https://twitter.com/DarkGhostHunter)
+[完整 pr 链接](https://github.com/laravel/framework/pull/39945) by [@DarkGhostHunter](https://twitter.com/DarkGhostHunter)
 
-## Use through instead of map when using pagination
+## 在使用分页时使用 through 而不是 map
 
-When you want to map paginated data and return only a subset of the fields, use `through` rather than `map`. The `map` breaks the pagination object and changes it's identity. While, `through` works on the paginated data itself
+当你想要对分页数据进行映射并返回字段的子集时，使用 `through` 而不是 `map`。`map` 会破坏分页对象并改变其标识，而 `through` 则在分页数据本身上进行操作。
 
 ```php
 // Don't: Mapping paginated data
@@ -1073,9 +1073,9 @@ $employees = Employee::paginate(10)->through(fn ($employee) => [
 
 Tip 来自 [@bhaidar](https://twitter.com/bhaidar/status/1475073910383120399)
 
-## Quickly add a bearer token to HTTP request
+## 快速向 HTTP 请求添加 Bearer Token
 
-There’s a `withToken` method to attach the `Authorization` header to a request.
+有一个 `withToken` 方法可以将 `Authorization` 头附加到请求中。
 
 ```php
 // Booo!
@@ -1089,9 +1089,9 @@ Http::withToken('dQw4w9WgXcq');
 
 Tip 来自 [@p3ym4n](https://twitter.com/p3ym4n/status/1487809735663489024)
 
-## Copy file or all files from a folder
+## 复制文件或文件夹中的所有文件
 
-You can use the `readStream` and `writeStream` to copy a file (or all files from a folder) from one disk to another keeping the memory usage low.
+你可以使用 `readStream` 和 `writeStream` 方法将文件（或文件夹中的所有文件）从一个磁盘复制到另一个磁盘，以保持内存使用低。
 
 ```php
 // List all the files from a folder
@@ -1118,7 +1118,7 @@ Tip 来自 [@alanrezende](https://twitter.com/alanrezende/status/148819425756749
 
 ## Sessions has() vs exists() vs missing()
 
-Do you know about `has`, `exists` and `missing` methods in Laravel session?
+你是否了解 Laravel 会话中的 `has`、`exists` 和 `missing` 方法？
 
 ```php
 // The has method returns true if the item is present & not null.
@@ -1133,9 +1133,9 @@ $request->session()->missing('key');
 
 Tip 来自 [@iamharis010](https://twitter.com/iamharis010/status/1489086240729145344)
 
-## Test that you are passing the correct data to a view
+## 测试是否将正确的数据传递给视图
 
-Need to test that you are passing the correct data to a view? You can use the viewData method on your response. Here are some examples:
+需要测试是否将正确的数据传递给视图吗？你可以在响应上使用 viewData 方法。以下是一些示例：
 
 ```php
 /** @test */
@@ -1165,9 +1165,9 @@ public function it_returns_the_correct_amount_of_records()
 
 Tip 来自 [@JuanRangelTX](https://twitter.com/JuanRangelTX/status/1489944361580351490)
 
-## Use Redis to track page views
+## 使用 Redis 跟踪页面访问量
 
-Tracking something like page views with MySQL can be quite a performance hit when dealing with high traffic. Redis is much better at this. You can use Redis and a scheduled command to keep MySQL in sync on a fixed interval.
+使用 MySQL 跟踪页面访问量在处理高流量时可能会带来很大的性能损耗。Redis 在这方面更好。你可以使用 Redis 和定时命令在固定间隔内将 MySQL 保持同步。
 
 ```php
 Route::get('{project:slug', function (Project $project) {
@@ -1206,9 +1206,9 @@ Redis::del('project-views');
 
 Tip 来自 [@Philo01](https://twitter.com/JackEllis/status/1491909483496411140)
 
-## to_route() helper function
+## to_route() 辅助函数
 
-Laravel 9 provides shorter version of `response()->route()`, take a look on the following code:
+Laravel 9 提供了 `response()->route()` 的缩写版本，请看下面的代码:
 
 ```php
 // Old way
@@ -1223,23 +1223,23 @@ Route::get('redirectRoute', function() {
 
 ```
 
-This helper work in the same way as `redirect()->route('home')`, but it is more concise than an old way.
+这个辅助函数的工作方式与 `redirect()->route('home')` 相同，但比旧方法更简洁。
 
 Tip 来自 [@CatS0up](https://github.com/CatS0up)
 
-## Pause a long running job when queue worker shuts down
+## 当队列工作进程关闭时暂停长时间运行的作业
 
-When running a long job, if your queue worker gets shutdown by
+在运行长时间作业时，如果你的队列工作进程被以下方式关闭：
 
-- Stopping the worker.
-- Sending signal **SIGTERM** (**SIGINT** for Horizon).
-- Pressing `CTRL + C` (Linux/Windows).
+- 停止工作进程。
+- 发送 **SIGTERM** 信号 (Horizon 使用 **SIGINT**).
+- 按下 `CTRL + C` (Linux / Windows).
 
-Then the job process may get corrupted while it is doing something.
+那么作业过程可能会在执行某个操作时中断。
 
-By checking with `app('queue.worker')->shouldQuit`, we can determine if the worker is shutting down. This way, we can save the current process and requeue the job so that when the queue worker runs again, it can resume from where it left.
+通过检查 `app('queue.worker')->shouldQuit`，我们可以确定工作进程是否正在关闭。这样，我们就可以保存当前进程并重新将作业放入队列，以便当队列工作进程再次运行时，可以从中断的地方继续执行。
 
-This is very useful in the Containerized world (Kubernetes, Docker etc.) where the container gets destroyed and re-created anytime.
+这在容器化世界（Kubernetes、Docker 等）中非常有用，容器会在任何时候被销毁和重新创建。
 
 ```php
 <?php
@@ -1295,11 +1295,11 @@ class MyLongJob implements ShouldQueue
 
 Tip 来自 [@a-h-abid](https://github.com/a-h-abid)
 
-## Freezing Time in Laravel Tests
+## 在 Laravel 测试中冻结时间
 
-In your Laravel tests, you might sometimes need to freeze the time.
+在 Laravel 测试中，你可能需要冻结时间。
 
-This is particularly useful if you're trying to make assertions based on timestamps or need to make queries based on dates and/or times.
+如果你想基于时间戳进行断言或需要基于日期和 / 或时间进行查询，这将非常有用。
 
 ```php
 // To freeze the time, you used to be able to write this at the time top of your tests:
@@ -1312,9 +1312,9 @@ $this->freezeTime();
 
 Tip 来自 [@AshAllenDesign](https://twitter.com/AshAllenDesign/status/1509115721183158272)
 
-## New squish helper
+## 新的压缩助手
 
-New in Laravel from 9.7 `squish` helper.
+从 Laravel 9.7 版本开始，新增了 `squish` 助手函数。
 
 ```php
 $result = Str::squish(' Hello   John,         how   are   you?    ');
@@ -1323,9 +1323,9 @@ $result = Str::squish(' Hello   John,         how   are   you?    ');
 
 Tip 来自 [@mattkingshott](https://twitter.com/mattkingshott/status/1511718052752150534)
 
-## Specify what to do if a scheduled task fails or succeeds
+## 指定定时任务失败或成功时的操作
 
-You can specify what to do if a scheduled task fails or succeeds.
+你可以指定定时任务失败或成功时的操作。
 
 ```php
 $schedule->command('emails:send')
@@ -1340,9 +1340,9 @@ $schedule->command('emails:send')
 
 Tip 来自 [@cosmeescobedo](https://twitter.com/cosmeescobedo/status/1513221529072414720)
 
-## Scheduled command on specific environments
+## 在特定环境下运行计划命令
 
-Running Laravel scheduled command on specific environments.
+在 Laravel 中，可以在特定环境下运行计划命令。
 
 ```php
 // Not good
@@ -1358,9 +1358,9 @@ $schedule->command('emails:send')
 
 Tip 来自 [@nguyenduy4994](https://twitter.com/nguyenduy4994/status/1516960273000587265)
 
-## Add conditionable behavior to your own classes
+## 为自定义类添加可条件执行的行为
 
-You can use the [Conditionable Trait](https://laravel.com/api/9.x/Illuminate/Support/Traits/Conditionable.html) to avoid using `if/else` and promote method chaining.
+你可以使用 [Conditionable Trait](https://laravel.com/api/9.x/Illuminate/Support/Traits/Conditionable.html) 来避免使用 if / else，并支持方法链式调用。
 
 ```php
 <?php
@@ -1411,11 +1411,11 @@ class MyController extends Controller
 }
 ```
 
-## Perform Action when Job has failed
+## 当作业失败时执行操作
 
-In some cases, we want to perform some action when job has failed. For example, send an email or a notification.
+在某些情况下，我们希望在作业失败时执行一些操作，例如发送电子邮件或通知。
 
-For this purpose, we can use `failed()` method in the job class, just like the `handle()` method:
+为此，我们可以在作业类中使用 `failed()` 方法，就像使用 `handle()` 方法一样：
 
 ```php
 namespace App\Jobs\Invoice;
@@ -1443,17 +1443,17 @@ class CalculateSingleConsignment implements ShouldQueue
 Tip 来自 [@pauloimon](https://github.com/pauloimon)
 
 
-## Ignore Database when Job has failed
+## 作业失败时忽略数据库
 
-If you ever need to bypass database when a job fails, you can do one of the below things to skip database:
-- Set env `QUEUE_FAILED_DRIVER` with value `null`. Works from Laravel 8 and above.
-- Set the `failed` value to `null` in `config/queue.php` file, replacing the array (like below code). This one works for Laravel 7 and older.
+如果你需要在作业失败时绕过数据库，可以执行以下操作之一来跳过数据库：
+- 在 Laravel 8 及更高版本中，设置环境变量 `QUEUE_FAILED_DRIVER` 的值为 `null`。
+- 在 `config/queue.php` 文件中将 `failed` 的值设置为 `null`，替换数组（如下所示）。此方法适用于 Laravel 7 及更早版本。
 
 ```php
     'failed' => null,
 ```
 
-Why you would want this? For applications where you do not need to store failed jobs and they needs to have very high TPS, skipping database can be very favourable as we are not hitting database, saving times & prevent database going down.
+为什么要这样做呢？对于不需要存储失败作业且需要非常高的 TPS 的应用程序来说，跳过数据库可以非常有利，因为我们不会访问数据库，从而节省时间并防止数据库崩溃。
 
 Tip 来自 [@a-h-abid](https://github.com/a-h-abid)
 
