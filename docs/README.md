@@ -9,7 +9,7 @@ Awesome Laravel tips and tricks for all artisans.
 
 ## 目录
 
-- [DB Models and Eloquent](db-models-and-eloquent.md) (98 tips)
+- [DB Models and Eloquent](db-models-and-eloquent.md) (100 tips)
 - [Models Relations](models-relations.md) (36 tips)
 - [Migrations](migrations.md) (15 tips)
 - [Views](views.md) (20 tips)
