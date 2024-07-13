@@ -110,3 +110,56 @@ Gate::before(function (?User $user, $ability) {
 });
 ```
 
+## 自定义身份验证事件
+
+Laravel 的身份验证系统在身份验证过程中会触发各种事件，允许你钩入这些事件并执行额外的操作或自定义逻辑。
+
+例如，你可能想记录用户的登录。
+你可以通过监听 `Illuminate\Auth\Events\Login` 事件来实现这一点。
+
+要实现这一点：
+
+1. 为事件创建事件监听器类。你可以使用 Artisan 命令生成这些类：
+```bash
+php artisan make:listener LogSuccessfulLogin
+```
+2. 编写事件发生时的执行逻辑：
+```php
+// app/Listeners/LogSuccessfulLogin.php
+namespace App\Listeners;
+
+use Illuminate\Support\Facades\Log;
+use Illuminate\Auth\Events\Login;
+
+class LogSuccessfulLogin
+{
+    public function handle(Login $event)
+    {
+        // Log the successful login
+        Log::info("User with ID ".$event->user->id." successfully logged in.");
+    }
+}
+```
+3. 在 `EventServiceProvider` 中注册事件监听器：
+```php
+// app/Providers/EventServiceProvider.php
+namespace App\Providers;
+
+use Illuminate\Auth\Events\Login;
+use App\Listeners\LogSuccessfulLogin;
+
+class EventServiceProvider extends ServiceProvider
+{
+    protected $listen = [
+        Login::class => [
+            LogSuccessfulLogin::class,
+        ]
+    ];
+
+    // Other event listeners...
+}
+```
+现在，每当有用户登录你的应用程序，你就可以通过检查 `/storage/logs/laravel.log` 中的 Laravel 日志文件来注意到。
+
+
+
